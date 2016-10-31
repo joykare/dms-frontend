@@ -1,22 +1,20 @@
 var express = require('express');
 var app = express();
+var dotenv = require('dotenv');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var config = require('./config/config');
 var routes = require('./server/routes');
+var config = require('./config/config');
 var router = express.Router();
+
+
+dotenv.load();
+var env = process.env.NODE_ENV;
+
+require('./config/db');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/api', routes(router));
-
-mongoose.connect(config.test_database, function(err){
-  if (err){
-    console.log('Database connection error: ', err);
-  }else {
-    console.log('Database connected successfully');
-  }
-});
 
 app.listen(config.port,  function(err){
   if (err){
