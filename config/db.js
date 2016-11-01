@@ -14,6 +14,6 @@ mongoose.connect(DB_URI, function(err){
   if (err){
     console.log('Database connection error: ', err);
   }else {
-    console.log('Database connected successfully');
+    console.log('Database connected successfully', DB_URI);
   }
 });
