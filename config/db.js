@@ -10,6 +10,7 @@ if (process.env.NODE_ENV == 'development') {
   DB_URI = config.test_database;
 }
 
+mongoose.Promise = global.Promise;
 mongoose.connect(DB_URI, function(err){
   if (err){
     console.log('Database connection error: ', err);
