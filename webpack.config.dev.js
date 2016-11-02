@@ -1,26 +1,22 @@
-var path = require('path')
-var webpack = require('webpack')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: __dirname + '/client/index.html',
+  filename: 'index.html',
+  inject: 'body'
+})
 
 module.exports = {
-  devtool: 'cheap-eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
-    './client/index'
+    'eventsource-polyfill',
+    'webpack-hot-middleware/client?reload=true',
+    './client/index.js'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: __dirname + '/client/dist',
+    publicPath: '/',
     filename: 'bundle.js'
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: './client/index.html',
-      filename: 'index.html',
-      inject: 'body'
-    })
-  ],
   module: {
     loaders: [{
       test: /\.css$/,
@@ -39,7 +35,10 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   devServer: {
-    contentBase: '.client//dist',
-    hot: true
-  }
-}
+    contentBase: './client/dist'
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    HtmlWebpackPluginConfig
+  ]
+};

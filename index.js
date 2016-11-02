@@ -8,24 +8,39 @@ const config = require('./config/config');
 const router = express.Router();
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.dev.js');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+// const webpackMiddleware = require('webpack-dev-middleware');
+// const webpackHotMiddleware = require('webpack-hot-middleware');
+
+dotenv.load();
+const env = process.env.NODE_ENV;
 
 require('./config/db');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'dist')));
 
-if (process.env.NODE_ENV === 'development') {
+if (env === 'development') {
   const compiler = webpack(webpackConfig);
   app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath
+    noInfo: false,
+    publicPath: webpackConfig.output.publicPath,
+    stats: {
+      colors: true,
+      hash: true,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false
+    }
   }));
   app.use(require('webpack-hot-middleware')(compiler));
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/client/index.html'));
+  })
+} else if(env == 'production') {
+  app.use(express.static(path.join(__dirname, '/client/dist')));
+  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
 }
-
 
 app.use('/api', routes(router));
 
