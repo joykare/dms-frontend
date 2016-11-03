@@ -3,18 +3,22 @@ import TextField from 'material-ui/TextField';
 
 const LogIn = (props) => {
   return (
-    <form onSubmit={props.handleSubmit} style={{textAlign:'center'}}>
+    <form onSubmit={props.onSubmit}  style={{textAlign:'center'}}>
       <div>
         <TextField
+          name="email"
           hintText="Email"
           floatingLabelText="Email"
+          onChange={props.onChange}
         />
       </div>
       <div>
         <TextField
+          name='password'
           hintText="Password"
           floatingLabelText="Password"
           type='password'
+          onChange={props.onChange}
         />
       </div>
       <br/><br/>
@@ -28,7 +32,8 @@ const LogIn = (props) => {
 };
 
 LogIn.propTypes = {
-  handleSubmit: PropTypes.func,
+  onSubmit: PropTypes.func,
+  onChange: PropTypes.func,
   pristine: PropTypes.func,
   submitting: PropTypes.func,
   reset: PropTypes.func
