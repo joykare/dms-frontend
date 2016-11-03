@@ -1,5 +1,5 @@
 import React from 'react';
-import LogIn from '../../components/Auth/LogIn.jsx';
+import LogIn from '../../components/Auth/LogIn';
 
 export default class LogInContainer extends React.Component {
   constructor(props) {
