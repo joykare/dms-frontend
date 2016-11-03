@@ -1,8 +1,8 @@
 import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper';
-import LogIn from './LogIn.jsx';
-import SignUp from './SignUp.jsx';
+import LogInContainer from '../../containers/Auth/LogInContainer.jsx';
+import SignUpContainer from '../../containers/Auth/SignUpContainer.jsx';
 
 const style = {
   height: 500,
@@ -22,10 +22,10 @@ const AuthWrapper = () => {
     <Paper style={style} zDepth={3}>
     <Tabs>
       <Tab label='Sign Up' value='signup'>
-        <SignUp />
+        <SignUpContainer />
       </Tab>
       <Tab label='Log In' value='login'>
-        <LogIn />
+        <LogInContainer />
       </Tab>
     </Tabs>
     </Paper>

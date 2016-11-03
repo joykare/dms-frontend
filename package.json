@@ -26,6 +26,7 @@
     "express": "^4.14.0",
     "express-generator": "^4.13.4",
     "html-webpack-plugin": "^2.24.1",
+    "immutable": "^3.8.1",
     "mocha": "^3.0.2",
     "mongoose": "^4.5.8",
     "mongoose-paginate": "^5.0.0",

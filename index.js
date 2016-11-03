@@ -8,8 +8,6 @@ const config = require('./config/config');
 const router = express.Router();
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.dev.js');
-// const webpackMiddleware = require('webpack-dev-middleware');
-// const webpackHotMiddleware = require('webpack-hot-middleware');
 
 dotenv.load();
 const env = process.env.NODE_ENV;
