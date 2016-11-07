@@ -1,4 +1,6 @@
 import * as constants from '../constants';
+// import fetch from 'isomorphic-fetch';
+import request from 'superagent';
 
 export function loginSuccess(user) {
   return {
@@ -39,5 +41,44 @@ export function signupRequest(credentials) {
   return {
     type: constants.SIGNUP_REQUEST,
     credentials
+  };
+}
+
+export function updateCredentials(credentials) {
+  return {
+    type: constants.UPDATE_CREDENTIALS,
+    credentials
+  };
+}
+
+export function loginUser(credentials) {
+  return dispatch => {
+    dispatch(loginRequest(credentials));
+    return (
+      request
+        .post('/api/users/login')
+        .send(credentials)
+        .then(response => {
+          dispatch(loginSuccess(response));
+        }).catch(err => {
+          console.log("Error", err);
+        })
+    );
+  };
+}
+
+export function signupUser(credentials) {
+  return dispatch => {
+    dispatch(loginRequest(credentials));
+    return (
+      request
+        .post('/api/users')
+        .send(credentials)
+        .then(response => {
+          dispatch(signupSuccess(response));
+        }).catch(err => {
+          console.log("Error", err);
+        })
+    );
   };
 }

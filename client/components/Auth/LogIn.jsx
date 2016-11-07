@@ -3,7 +3,7 @@ import TextField from 'material-ui/TextField';
 
 const LogIn = (props) => {
   return (
-    <form onSubmit={props.onSubmit}  style={{textAlign:'center'}}>
+    <form style={{textAlign:'center'}}>
       <div>
         <TextField
           name="email"
@@ -23,8 +23,8 @@ const LogIn = (props) => {
       </div>
       <br/><br/>
       <div>
-        <button type="submit" disabled={props.pristine || props.submitting}>Submit</button>
-        <button type="button" disabled={props.pristine || props.submitting} onClick={props.reset}>Clear Values
+        <button type="button" onClick={props.onLogin} >Submit</button>
+        <button type="button" onClick={props.reset}>Clear Values
         </button>
       </div>
     </form>
@@ -32,7 +32,7 @@ const LogIn = (props) => {
 };
 
 LogIn.propTypes = {
-  onSubmit: PropTypes.func,
+  onLogin: PropTypes.func,
   onChange: PropTypes.func,
   pristine: PropTypes.func,
   submitting: PropTypes.func,

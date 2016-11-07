@@ -1,9 +1,10 @@
 import React from 'react';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
-import { Provider } from 'react-redux';
+import {Router, Route, hashHistory, IndexRoute} from 'react-router';
+import {Provider} from 'react-redux';
 import Main from '../components/Main/Main';
 import AuthWrapper from '../components/Auth/AuthWrapper';
 import configureStore from '../store/store';
+require('babel-polyfill');
 
 const store = configureStore();
 

@@ -3,46 +3,65 @@ import TextField from 'material-ui/TextField';
 
 const SignUp = (props) => {
   return (
-    <form onSubmit={props.onSubmit} style={{textAlign:'center'}}>
+    <form style={{textAlign:'center'}}>
       <div>
         <TextField hintText = "First Name"
           floatingLabelText="First Name"
-          onChange={props.validate}
+          name='first'
+          onBlur={props.validate}
+          onChange={props.onChange}
         />
       </div>
       <div>
         <TextField
           hintText = "Last Name"
           floatingLabelText="Last Name"
-          onChange={props.validate}
+          name='last'
+          onBlur={props.validate}
+          onChange={props.onChange}
+        />
+      </div>
+      <div>
+        <TextField
+          hintText = "Username"
+          floatingLabelText="Username"
+          name='username'
+          onBlur={props.validate}
+          onChange={props.onChange}
         />
       </div>
       <div>
         <TextField
           hintText="Email"
           floatingLabelText="Email"
-          onChange={props.validate}
+          name='email'
+          onBlur={props.validate}
+          onChange={props.onChange}
         />
       </div>
       <div>
         <TextField
           hintText="Password"
           floatingLabelText="Password"
+          name='password'
           type='password'
-          onChange={props.validate}
+          onBlur={props.validate}
+          onChange={props.onChange}
         />
       </div>
       <div>
         <TextField
           hintText="Confirm Password"
           floatingLabelText="Confirm Password"
+          name='confirmPassword'
           type='password'
-          onChange={props.validate}
+          onBlur={props.validate}
+          onChange={props.onChange}
         />
       </div>
       <br/><br/>
       <div>
-        <button type="submit" disabled={props.pristine || props.submitting}>Submit</button>
+        <button type="button" onClick={props.onSignup}>Submit</button>
         <button type="button" disabled={props.pristine || props.submitting} onClick={props.reset}>Clear Values
         </button>
       </div>
@@ -51,7 +70,9 @@ const SignUp = (props) => {
 };
 
 SignUp.propTypes = {
-  onSubmit: PropTypes.func,
+  onSignup: PropTypes.func,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   pristine: PropTypes.func,
   submitting: PropTypes.func,
   reset: PropTypes.func,

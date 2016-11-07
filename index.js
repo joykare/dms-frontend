@@ -16,6 +16,7 @@ require('./config/db');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use('/api', routes(router));
 
 if (env === 'development') {
   const compiler = webpack(webpackConfig);
@@ -34,13 +35,15 @@ if (env === 'development') {
   app.use(require('webpack-hot-middleware')(compiler));
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, '/client/index.html'));
-  })
+  });
 } else if(env == 'production') {
   app.use(express.static(path.join(__dirname, '/client/dist')));
-  res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '/client/dist/index.html'));
+  });
 }
 
-app.use('/api', routes(router));
+
 
 app.listen(config.port,  function(err){
   if (err){
