@@ -59,9 +59,9 @@ export function loginUser(credentials) {
         .post('/api/users/login')
         .send(credentials)
         .then(response => {
-          dispatch(loginSuccess(response));
+          dispatch(loginSuccess(response.body));
         }).catch(err => {
-          console.log("Error", err);
+          dispatch(loginFailure(err));
         })
     );
   };
@@ -75,9 +75,9 @@ export function signupUser(credentials) {
         .post('/api/users')
         .send(credentials)
         .then(response => {
-          dispatch(signupSuccess(response));
+          dispatch(signupSuccess(response.body));
         }).catch(err => {
-          console.log("Error", err);
+          dispatch(signupFailure(err));
         })
     );
   };
