@@ -1,20 +1,23 @@
-import { Map, fromJS } from 'immutable';
-import * as actionTypes from '../actions/authActions';
+import {Map, fromJS} from 'immutable';
+import * as actionTypes from '../constants';
 
 export const INITIAL_STATE = Map({
   isAuthenticated: false,
   isFetching: false,
   credentials: Map({
+    first: '',
+    last: '',
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: 'user'
   }),
   user: null,
   error: null
 });
 
-export default function(state = INITIAL_STATE, action ) {
+export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
   case actionTypes.LOGIN_REQUEST:
   case actionTypes.SIGNUP_REQUEST:
@@ -32,10 +35,13 @@ export default function(state = INITIAL_STATE, action ) {
         isAuthenticated: true,
         isFetching: false,
         credentials: Map({
+          first: '',
+          last: '',
           username: '',
           email: '',
           password: '',
-          confirmPassword: ''
+          confirmPassword: '',
+          role: ''
         }),
         user: fromJS(action.user),
         error: null
@@ -49,6 +55,12 @@ export default function(state = INITIAL_STATE, action ) {
         isFetching: false,
         user: null,
         error: fromJS(action.error)
+      }))
+    );
+  case actionTypes.UPDATE_CREDENTIALS:
+    return (
+      state.merge(Map({
+        credentials: fromJS(action.credentials)
       }))
     );
   default:

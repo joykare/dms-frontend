@@ -34,7 +34,8 @@ module.exports = {
               expiresIn: '24h'
             });
             res.status(200).send({
-              token: token
+              token: token,
+              user: user
             });
           }
         }
