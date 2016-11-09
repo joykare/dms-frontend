@@ -58,10 +58,10 @@ export function loginUser(credentials) {
       request
         .post('/api/users/login')
         .send(credentials)
-        .then(response => {
+        .then((response) => {
           dispatch(loginSuccess(response.body));
-        }).catch(err => {
-          dispatch(loginFailure(err));
+        }).catch((err) => {
+          dispatch(loginFailure(err.response.body));
         })
     );
   };
@@ -69,15 +69,15 @@ export function loginUser(credentials) {
 
 export function signupUser(credentials) {
   return dispatch => {
-    dispatch(loginRequest(credentials));
+    dispatch(signupRequest(credentials));
     return (
       request
         .post('/api/users')
         .send(credentials)
-        .then(response => {
+        .then((response) => {
           dispatch(signupSuccess(response.body));
-        }).catch(err => {
-          dispatch(signupFailure(err));
+        }).catch((err) => {
+          dispatch(signupFailure(err.response.body));
         })
     );
   };
