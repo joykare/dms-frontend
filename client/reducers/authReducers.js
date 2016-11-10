@@ -5,8 +5,6 @@ export const INITIAL_STATE = Map({
   isAuthenticated: false,
   isFetching: false,
   credentials: Map({
-    first: '',
-    last: '',
     username: '',
     email: '',
     password: '',

@@ -12,12 +12,10 @@ var userSchema = new Schema ({
   },
   name: {
     first: {
-      type: String,
-      required: true
+      type: String
     },
     last: {
-      type: String,
-      required: true
+      type: String
     }
   },
   email: {
