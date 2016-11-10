@@ -1,26 +1,10 @@
 import React, {PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const SignUp = (props) => {
   return (
     <form style={{textAlign:'center'}}>
-      <div>
-        <TextField hintText = "First Name"
-          floatingLabelText="First Name"
-          name='first'
-          onBlur={props.validate}
-          onChange={props.onChange}
-        />
-      </div>
-      <div>
-        <TextField
-          hintText = "Last Name"
-          floatingLabelText="Last Name"
-          name='last'
-          onBlur={props.validate}
-          onChange={props.onChange}
-        />
-      </div>
       <div>
         <TextField
           hintText = "Username"
@@ -61,9 +45,7 @@ const SignUp = (props) => {
       </div>
       <br/><br/>
       <div>
-        <button type="button" onClick={props.onSignup}>Submit</button>
-        <button type="button" disabled={props.pristine || props.submitting} onClick={props.reset}>Clear Values
-        </button>
+        <RaisedButton label="Signup" primary={true} onClick={props.onSignup}/>
       </div>
     </form>
   );
@@ -73,8 +55,6 @@ SignUp.propTypes = {
   onSignup: PropTypes.func,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
-  pristine: PropTypes.func,
-  submitting: PropTypes.func,
   reset: PropTypes.func,
   validate: PropTypes.func
 };

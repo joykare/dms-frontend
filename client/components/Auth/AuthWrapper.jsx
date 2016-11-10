@@ -9,7 +9,7 @@ const style = {
   textAlign: 'center',
   display: 'inline-block',
   position: 'absolute',
-  top: '50%',
+  top: '60%',
   left: '50%',
   marginRight: '-50%',
   transform: 'translate(' + '-50%,' + '-50%' + ')'

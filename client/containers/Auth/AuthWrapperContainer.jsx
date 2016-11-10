@@ -25,7 +25,6 @@ class AuthWrapperContainer extends React.Component {
   }
 
   handleChange(event) {
-    // making another reference to the map object
     let credentials = this.props.auth.get('credentials');
     credentials = credentials.set(event.target.name, event.target.value);
     this.props.authActions.updateCredentials(credentials.toJS());
@@ -63,8 +62,6 @@ AuthWrapperContainer.propTypes = {
 };
 
 function mapStateToProps(state){
-  // console.log(state);
-  // const auth = state.get('auth');
   return {
     auth: state.auth
   };

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const LogIn = (props) => {
   return (
@@ -23,9 +24,7 @@ const LogIn = (props) => {
       </div>
       <br/><br/>
       <div>
-        <button type="button" onClick={props.onLogin} >Submit</button>
-        <button type="button" onClick={props.reset}>Clear Values
-        </button>
+        <RaisedButton label="Login" primary={true} onClick={props.onLogin}/>
       </div>
     </form>
   );

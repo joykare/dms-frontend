@@ -91,23 +91,23 @@ describe('user test suite', function() {
         .expect({message: 'Duplicate entry'}, done);
     });
 
-    it('asserts that last and first names are required', function(done) {
-      request
-        .post('/api/users')
-        .set('x-access-token', token)
-        .send({
-          username: 'test',
-          email: 'test@gmail.com',
-          password: 'test',
-          role: 'user'
-        })
-        .end(function(err, res) {
-          expect(res.status).to.equal(500);
-          expect(res.body.message)
-            .to.equal('Error occured while saving the user');
-          done();
-        });
-    });
+    // it('asserts that last and first names are required', function(done) {
+    //   request
+    //     .post('/api/users')
+    //     .set('x-access-token', token)
+    //     .send({
+    //       username: 'test',
+    //       email: 'test@gmail.com',
+    //       password: 'test',
+    //       role: 'user'
+    //     })
+    //     .end(function(err, res) {
+    //       expect(res.status).to.equal(500);
+    //       expect(res.body.message)
+    //         .to.equal('Error occured while saving the user');
+    //       done();
+    //     });
+    // });
 
     it('asserts that a new user has a role defined', function(done) {
       var role = User.schema.paths.role;
