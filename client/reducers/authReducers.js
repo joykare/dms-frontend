@@ -12,7 +12,11 @@ export const INITIAL_STATE = Map({
     role: 'user'
   }),
   user: null,
-  error: null
+  error: null,
+  validations: Map({
+    isValid: false,
+    errorMessage: null
+  })
 });
 
 export default function(state = INITIAL_STATE, action) {
@@ -59,6 +63,24 @@ export default function(state = INITIAL_STATE, action) {
     return (
       state.merge(Map({
         credentials: fromJS(action.credentials)
+      }))
+    );
+  case actionTypes.VALIDATE_AUTH_SUCCESS:
+    return (
+      state.merge(Map({
+        validations: Map({
+          isValid: true,
+          errorMessage: null
+        })
+      }))
+    );
+  case actionTypes.VALIDATE_AUTH_FAILURE:
+    return (
+      state.merge(Map({
+        validations: Map({
+          isValid: false,
+          errorMessage: fromJS(action.error)
+        })
       }))
     );
   default:

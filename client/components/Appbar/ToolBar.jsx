@@ -43,7 +43,7 @@ const ToolBar = (props) => {
 };
 
 ToolBar.propTypes = {
-  value: PropTypes.Number,
+  value: PropTypes.number,
   handleChange: PropTypes.func,
 };
 export default ToolBar;

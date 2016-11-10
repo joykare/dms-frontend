@@ -17,7 +17,7 @@ const NavBar = (props) => (
 );
 
 NavBar.propTypes = {
-  muiTheme: PropTypes.Object
+  muiTheme: PropTypes.object
 };
 
 

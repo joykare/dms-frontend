@@ -51,6 +51,19 @@ export function updateCredentials(credentials) {
   };
 }
 
+export function validationSuccess() {
+  return {
+    type: constants.VALIDATE_AUTH_SUCCESS
+  };
+}
+
+export function validationFailure(error) {
+  return {
+    type: constants.VALIDATE_AUTH_FAILURE,
+    error
+  };
+}
+
 export function loginUser(credentials) {
   return dispatch => {
     dispatch(loginRequest(credentials));
