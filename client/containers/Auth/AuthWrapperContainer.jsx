@@ -11,7 +11,8 @@ import isEmpty from 'lodash/isEmpty';
 class AuthWrapperContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleLoginValidate =this.handleLoginValidate.bind(this);
     this.handleSignupValidate =this.handleSignupValidate.bind(this);
