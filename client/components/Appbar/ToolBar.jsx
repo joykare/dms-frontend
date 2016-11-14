@@ -5,8 +5,6 @@ import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-mo
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import {Toolbar, ToolbarGroup, ToolbarSeparator} from 'material-ui/Toolbar';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const ToolBar = (props) => {
   return (
@@ -20,9 +18,7 @@ const ToolBar = (props) => {
         </DropDownMenu>
       </ToolbarGroup>
       <ToolbarGroup>
-        <FloatingActionButton iconStyle={{fill: 'white'}} primary={true} style={{marginTop:30, marginBottom:30, marginLeft:30}} zdepth={3}>
-          <ContentAdd />
-        </FloatingActionButton>
+
         <ToolbarSeparator />
         <IconMenu
           iconButtonElement={
