@@ -2,10 +2,10 @@ import {Map, List, fromJS} from 'immutable';
 import * as actionTypes from '../constants';
 
 export const INITIAL_DOC_STATE = Map({
-  doc_list: List(),
+  docList: List(),
   isFetching: false,
   document: Map({
-    doc_content: Map({
+    docContent: Map({
       title: '',
       accessLevel: '',
       content: '',
@@ -26,7 +26,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
     return (
       state.merge(Map({
         isFetching: false,
-        doc_list: fromJS(action.doc)
+        docList: fromJS(action.doc)
       }))
     );
   case actionTypes.DOC_UPDATE_REQUEST:
@@ -34,7 +34,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: true,
         document: Map({
-          doc_content: fromJS(action.updates)
+          docContent: fromJS(action.updates)
         })
       }))
     );
@@ -43,6 +43,22 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
 
+      }))
+    );
+  case actionTypes.DOC_CREATE_REQUEST:
+    return (
+      state.merge(Map({
+        isFetching: true,
+        document: Map({
+          docContent: fromJS(action.doc)
+        })
+      }))
+    );
+  case actionTypes.DOC_CREATE_SUCCESS:
+    return (
+      state.merge(Map({
+        isFetching: false,
+        docList: state.get('docList').push(fromJS(action.doc))
       }))
     );
   default:

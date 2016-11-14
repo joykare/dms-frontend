@@ -22,6 +22,26 @@ export function docFailure(error) {
   };
 }
 
+export function docCreateRequest() {
+  return {
+    type: constants.DOC_CREATE_REQUEST
+  };
+}
+
+export function docCreateSuccess(doc) {
+  return {
+    type: constants.DOC_CREATE_SUCCESS,
+    doc
+  };
+}
+
+export function docCreateFailure(error) {
+  return {
+    type: constants.DOC_CREATE_FAILURE,
+    error
+  };
+}
+
 export function docUpdateRequest(updates) {
   return {
     type: constants.DOC_UPDATE_REQUEST,
@@ -50,9 +70,26 @@ export function fetchDoc() {
       .get('/api/documents/')
       .set('x-access-token', tokenUtils.getAuthToken())
       .then(response => {
+        console.log('Fetch results',response.body);
         dispatch(docSuccess(response.body));
       }).catch(err => {
         dispatch(docFailure(err));
+      });
+  };
+}
+
+export function createDoc(doc) {
+  return dispatch => {
+    dispatch(docCreateRequest());
+    request
+      .post('/api/documents/')
+      .set('x-access-token', tokenUtils.getAuthToken())
+      .send(doc)
+      .then(response => {
+        console.log(response);
+        dispatch(docCreateSuccess(response.body));
+      }).catch(err => {
+        dispatch(docCreateFailure(err));
       });
   };
 }

@@ -7,16 +7,16 @@ import DocumentList from '../../components/Documents/DocumentList';
 class DocumentContainer extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props', this.props);
   }
 
   componentDidMount() {
     this.props.documentActions.fetchDoc();
+
   }
 
   render() {
     return (
-      <DocumentList documents={this.props.documents.get('doc_list').toJS()}/>
+      <DocumentList documents={this.props.documents.get('docList').toJS()}/>
     );
   }
 }
