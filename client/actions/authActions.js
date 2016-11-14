@@ -1,6 +1,6 @@
 import * as constants from '../constants';
-// import fetch from 'isomorphic-fetch';
 import request from 'superagent';
+import * as tokenUtils from '../utils/tokenUtility';
 
 export function loginSuccess(user) {
   return {
@@ -51,6 +51,19 @@ export function updateCredentials(credentials) {
   };
 }
 
+export function validationSuccess() {
+  return {
+    type: constants.VALIDATE_AUTH_SUCCESS
+  };
+}
+
+export function validationFailure(error) {
+  return {
+    type: constants.VALIDATE_AUTH_FAILURE,
+    error
+  };
+}
+
 export function loginUser(credentials) {
   return dispatch => {
     dispatch(loginRequest(credentials));
@@ -59,6 +72,7 @@ export function loginUser(credentials) {
         .post('/api/users/login')
         .send(credentials)
         .then((response) => {
+          tokenUtils.setAuthToken(response.body.token);
           dispatch(loginSuccess(response.body));
         }).catch((err) => {
           dispatch(loginFailure(err.response.body));
@@ -75,6 +89,7 @@ export function signupUser(credentials) {
         .post('/api/users')
         .send(credentials)
         .then((response) => {
+          tokenUtils.setAuthToken(response.body.token);
           dispatch(signupSuccess(response.body));
         }).catch((err) => {
           dispatch(signupFailure(err.response.body));
