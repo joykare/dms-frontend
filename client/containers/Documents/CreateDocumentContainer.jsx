@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import CreateDocument from '../../components/Documents/CreateDocument';
+import ConfirmDelete from '../../components/Documents/ConfirmDelete';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as documentActions from '../../actions/documentActions';
@@ -8,26 +9,34 @@ class CreateDocumentContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
     };
-    this.handleOpen = this.handleOpen.bind(this);
+    this.toggleCreate = this.toggleCreate.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleOpen() {
-    this.setState({open: true});
+  toggleCreate() {
+    this.props.documentActions.toggleCreateDocument();
   }
 
   handleClose() {
-    this.setState({open: false});
+    this.props.documentActions.toggleClose();
+  }
+
+  handleDelete() {
+    let documentDetails = this.props.documents.get('document').toJS();
+    this.props.documentActions.deleteDoc(documentDetails.docContent);
   }
 
   handleSubmit() {
     let documentDetails = this.props.documents.get('document').toJS();
-    this.props.documentActions.createDoc(documentDetails.docContent);
-    this.handleClose();
+    if(documentDetails.isUpdatingDoc) {
+      this.props.documentActions.editDoc(documentDetails.docContent);
+    } else {
+      this.props.documentActions.createDoc(documentDetails.docContent);
+    }
   }
 
   handleChange(event) {
@@ -35,16 +44,28 @@ class CreateDocumentContainer extends React.Component {
     let document = this.props.documents.get('document');
     let docContent = document.get('docContent');
     docContent = docContent.set(event.target.name, event.target.value);
-    this.props.documentActions.docUpdateRequest(docContent.toJS());
+
+    if(document.get('isUpdatingDoc')){
+      this.props.documentActions.docUpdateRequest(docContent.toJS());
+    } else {
+      this.props.documentActions.docCreateRequest(docContent.toJS());
+    }
+
   }
 
   render() {
     return (
-      <CreateDocument onChange={this.handleChange}
-                      onOpen={this.handleOpen}
-                      onClose={this.handleClose}
-                      isShowing={this.state.open}
-                      onSubmit={this.handleSubmit} />
+      <div>
+        <CreateDocument document={this.props.documents.get('document').toJS()}
+                        onChange={this.handleChange}
+                        onCreate={this.toggleCreate}
+                        onClose={this.handleClose}
+                        isShowing={this.state.open}
+                        onSubmit={this.handleSubmit} />
+        <ConfirmDelete document={this.props.documents.get('document').toJS()}
+                        onDelete={this.handleDelete}
+                        onClose={this.handleClose} />
+      </div>
     );
   }
 }

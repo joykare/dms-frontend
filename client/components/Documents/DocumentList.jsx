@@ -7,8 +7,10 @@ const DocumentList = (props) => {
 
       {props.documents && props.documents.length
       ? props.documents.map((doc) => (
-        <div className='col-xs-12' style={{padding: 30}}>
-          <Document document={doc}/>
+        <div className='col-xs-12' style={{padding: 30}} key={doc._id}>
+          <Document document={doc}
+                    onUpdate={props.onUpdate}
+                    onDelete={props.onDelete}/>
         </div>
       )) : <span> No docs found </span>}
 
@@ -18,7 +20,9 @@ const DocumentList = (props) => {
 };
 
 DocumentList.propTypes = {
-  documents: PropTypes.array.isRequired
+  documents: PropTypes.array.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 

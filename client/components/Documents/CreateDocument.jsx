@@ -25,26 +25,28 @@ const CreateDocument = (props) => {
 
   return (
     <div>
-      <FloatingActionButton iconStyle={{fill: 'white'}} onTouchTap={props.onOpen} primary={true} style={{position: 'fixed', bottom: 20, right: 20}} zdepth={3}>
+      <FloatingActionButton iconStyle={{fill: 'white'}} onTouchTap={props.onCreate} primary={true} style={{position: 'fixed', bottom: 20, right: 20}} zdepth={3}>
         <ContentAdd />
       </FloatingActionButton>
       <Dialog
-        title='Create Document'
+        title= {props.document.isUpdatingDoc ? 'Edit Document' : 'Create Document'}
         actions={actions}
         modal={false}
-        open={props.isShowing}
+        open={props.document.isShowingDialog}
         onRequestClose={props.onClose}
       >
         <TextField
           name='title'
           hintText='Title'
           floatingLabelText='Title'
+          defaultValue={props.document.docContent.title}
           onChange={props.onChange}
         /><br />
         <TextField
           name='content'
           hintText='Content'
           floatingLabelText='Content'
+          defaultValue={props.document.docContent.content}
           onChange={props.onChange}
           multiLine={true}
           fullWidth={true}
@@ -64,7 +66,8 @@ const CreateDocument = (props) => {
 };
 
 CreateDocument.propTypes = {
-  onOpen: PropTypes.func,
+  document: PropTypes.object.isRequired,
+  onCreate: PropTypes.func,
   isShowing: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,

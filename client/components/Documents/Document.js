@@ -28,8 +28,8 @@ const Document = (props) => {
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         >
-        <MenuItem primaryText="Edit Document" />
-        <MenuItem primaryText="Delete Document" />
+        <MenuItem primaryText="Edit Document" onTouchTap={() => props.onUpdate(props.document)}/>
+        <MenuItem primaryText="Delete Document" onTouchTap={() => props.onDelete(props.document)}/>
       </IconMenu>
      </CardHeader>
      <CardTitle title={props.document.title} />
@@ -46,7 +46,10 @@ Document.propTypes = {
     title: PropTypes.string,
     content: PropTypes.string,
     role: PropTypes.string
-  })
+  }),
+  key: PropTypes.string,
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 export default Document;

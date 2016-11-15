@@ -22,9 +22,10 @@ export function docFailure(error) {
   };
 }
 
-export function docCreateRequest() {
+export function docCreateRequest(doc) {
   return {
-    type: constants.DOC_CREATE_REQUEST
+    type: constants.DOC_CREATE_REQUEST,
+    doc
   };
 }
 
@@ -49,6 +50,32 @@ export function docUpdateRequest(updates) {
   };
 }
 
+export function toggleCreateDocument() {
+  return {
+    type: constants.TOGGLE_CREATE_DOC
+  };
+}
+
+export function toggleUpdateDocument(doc) {
+  return {
+    type: constants.TOGGLE_UPDATE_DOC,
+    doc
+  };
+}
+
+export function toggleDeleteDocument(doc) {
+  return {
+    type: constants.TOGGLE_DELETE_DOC,
+    doc
+  };
+}
+
+export function toggleClose() {
+  return {
+    type: constants.TOGGLE_CLOSE
+  };
+}
+
 export function docUpdateSuccess(doc) {
   return {
     type: constants.DOC_UPDATE_SUCCESS,
@@ -63,6 +90,21 @@ export function docUpdateFailure(error) {
   };
 }
 
+export function docDeleteSuccess(doc) {
+  return {
+    type: constants.DOC_DELETE_SUCCESS,
+    doc
+  };
+}
+
+export function docDeleteFailure(error) {
+  return {
+    type: constants.DOC_DELETE_FAILURE,
+    error
+  };
+}
+
+
 export function fetchDoc() {
   return dispatch => {
     dispatch(docRequest());
@@ -70,7 +112,6 @@ export function fetchDoc() {
       .get('/api/documents/')
       .set('x-access-token', tokenUtils.getAuthToken())
       .then(response => {
-        console.log('Fetch results',response.body);
         dispatch(docSuccess(response.body));
       }).catch(err => {
         dispatch(docFailure(err));
@@ -86,7 +127,6 @@ export function createDoc(doc) {
       .set('x-access-token', tokenUtils.getAuthToken())
       .send(doc)
       .then(response => {
-        console.log(response);
         dispatch(docCreateSuccess(response.body));
       }).catch(err => {
         dispatch(docCreateFailure(err));
@@ -94,16 +134,32 @@ export function createDoc(doc) {
   };
 }
 
-export function editDoc(userId) {
+export function editDoc(doc) {
   return dispatch => {
     dispatch(docUpdateRequest());
     request
-      .get('/api/users/' + userId)
+      .put(`/api/documents/${doc._id}`)
       .set('x-access-token', tokenUtils.getAuthToken())
+      .send(doc)
       .then(response => {
-        dispatch(docUpdateSuccess(response));
+        dispatch(docUpdateSuccess(response.body));
       }).catch(err => {
         dispatch(docUpdateFailure(err));
+      });
+  };
+}
+
+export function deleteDoc(doc) {
+  console.log(`/api/documents/${doc._id}`);
+  return dispatch => {
+    request
+      .delete(`/api/documents/${doc._id}`)
+      .set('x-access-token', tokenUtils.getAuthToken())
+      .then(response => {
+        console.log(response);
+        dispatch(docDeleteSuccess(response.body));
+      }).catch(err => {
+        dispatch(docDeleteFailure(err));
       });
   };
 }

@@ -7,16 +7,28 @@ import DocumentList from '../../components/Documents/DocumentList';
 class DocumentContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.toggleUpdateDocument = this.toggleUpdateDocument.bind(this);
+    this.toggleDeleteDocument = this.toggleDeleteDocument.bind(this);
+
   }
 
   componentDidMount() {
     this.props.documentActions.fetchDoc();
+  }
 
+  toggleUpdateDocument(doc) {
+    this.props.documentActions.toggleUpdateDocument(doc);
+  }
+
+  toggleDeleteDocument(doc) {
+    this.props.documentActions.toggleDeleteDocument(doc);
   }
 
   render() {
     return (
-      <DocumentList documents={this.props.documents.get('docList').toJS()}/>
+      <DocumentList documents={this.props.documents.get('docList').toJS()}
+                    onUpdate={this.toggleUpdateDocument}
+                    onDelete={this.toggleDeleteDocument}/>
     );
   }
 }
