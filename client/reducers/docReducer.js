@@ -116,6 +116,18 @@ export default function(state = INITIAL_DOC_STATE, action) {
 
       }))
     );
+  case actionTypes.DOC_DELETE_REQUEST:
+    return (
+      state.merge(Map({
+        isFetching: true,
+        document: Map({
+          docContent: fromJS(action.doc),
+          isShowingDialog: false,
+          isUpdatingDoc: false,
+          confirmDelete: false
+        })
+      }))
+    );
   case actionTypes.DOC_DELETE_SUCCESS:
     return (
       state.merge(Map({
