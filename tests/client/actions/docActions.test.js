@@ -130,4 +130,109 @@ describe('async document actions', () => {
         expect(store.getActions()).to.eql(expectedActions);
       });
   });
+
+  it('simulates failed document fetch', () => {
+    mock
+      .get('/api/documents', () => {
+        return {
+          status: 403,
+          body: {error: 'Not authorized'}
+        };
+      });
+
+    const expectedActions = [{
+      type: actionTypes.DOC_GET_REQUEST
+    }, {
+      type: actionTypes.DOC_GET_FAILURE,
+      error: {error: 'Not authorized'}
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actionCreators.fetchDoc())
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+      });
+  });
+
+  it('simulates failed document create', () => {
+    let newDocument = documents[0].document1;
+
+    mock
+      .post('/api/documents', () => {
+        return {
+          status: 403,
+          body: {error: 'Not authorized'}
+        };
+      });
+
+    const expectedActions = [{
+      type: actionTypes.DOC_CREATE_REQUEST,
+      doc: newDocument
+    }, {
+      type: actionTypes.DOC_CREATE_FAILURE,
+      error: {error: 'Not authorized'}
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actionCreators.createDoc(newDocument))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+      });
+  });
+
+  it('simulates failed document edit', () => {
+    let editDocument = documents[1].document2;
+
+    mock
+      .put(`/api/documents/${editDocument._id}`, () => {
+        return {
+          status: 403,
+          body: {error: 'Not authorized'}
+        };
+      });
+
+    const expectedActions = [{
+      type: actionTypes.DOC_UPDATE_REQUEST,
+      updates: editDocument
+    }, {
+      type: actionTypes.DOC_UPDATE_FAILURE,
+      error: {error: 'Not authorized'}
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actionCreators.editDoc(editDocument))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+      });
+  });
+
+  it('simulates failed document delete', () => {
+    let deleteDocument = documents[1].document2;
+
+    mock
+      .del(`/api/documents/${deleteDocument._id}`, () => {
+        return {
+          status: 403,
+          body: {error: 'Not authorized'}
+        };
+      });
+
+    const expectedActions = [{
+      type: actionTypes.DOC_DELETE_REQUEST,
+      doc: deleteDocument
+    }, {
+      type: actionTypes.DOC_DELETE_FAILURE,
+      error: {error: 'Not authorized'}
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actionCreators.deleteDoc(deleteDocument))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+      });
+  });
 });

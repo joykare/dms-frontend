@@ -14,7 +14,8 @@ export const INITIAL_DOC_STATE = Map({
     isUpdatingDoc: false,
     isShowingDialog: false,
     confirmDelete: false
-  })
+  }),
+  error: null
 });
 
 export default function(state = INITIAL_DOC_STATE, action) {
@@ -22,19 +23,44 @@ export default function(state = INITIAL_DOC_STATE, action) {
   case actionTypes.DOC_GET_REQUEST:
     return (
       state.merge(Map({
-        isFetching: true
+        isFetching: true,
+        document: Map({
+          docContent: Map({
+            title: '',
+            accessLevel: '',
+            content: '',
+            role: ''
+          }),
+          isUpdatingDoc: false,
+          isShowingDialog: false,
+          confirmDelete: false
+        }),
+        error: null
       }))
     );
   case actionTypes.DOC_GET_SUCCESS:
     return (
       state.merge(Map({
         isFetching: false,
-        docList: fromJS(action.doc)
+        docList: fromJS(action.doc),
+        document: Map({
+          docContent: Map({
+            title: '',
+            accessLevel: '',
+            content: '',
+            role: ''
+          }),
+          isUpdatingDoc: false,
+          isShowingDialog: false,
+          confirmDelete: false
+        }),
+        error: null
       }))
     );
   case actionTypes.TOGGLE_CREATE_DOC:
     return (
       state.merge(Map({
+        isFetching: false,
         document: Map({
           docContent: Map({
             title: '',
@@ -45,12 +71,14 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isUpdatingDoc: false,
           isShowingDialog: true,
           confirmDelete: false
-        })
+        }),
+        error: null
       }))
     );
   case actionTypes.TOGGLE_CLOSE:
     return (
       state.merge(Map({
+        isFetching: false,
         document: Map({
           docContent: Map({
             title: '',
@@ -61,29 +89,34 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isUpdatingDoc: false,
           isShowingDialog: false,
           confirmDelete: false
-        })
+        }),
+        error: null
       }))
     );
   case actionTypes.TOGGLE_UPDATE_DOC:
     return (
       state.merge(Map({
+        isFetching: false,
         document: Map({
           docContent: state.get('document').get('docContent').merge(fromJS(action.doc)),
           isUpdatingDoc: true,
           isShowingDialog: true,
           confirmDelete: false
-        })
+        }),
+        error: null
       }))
     );
   case actionTypes.TOGGLE_DELETE_DOC:
     return (
       state.merge(Map({
+        isFetching: false,
         document: Map({
           docContent: state.get('document').get('docContent').merge(fromJS(action.doc)),
           isShowingDialog: false,
           isUpdatingDoc: false,
           confirmDelete: true
-        })
+        }),
+        error: null
       }))
     );
   case actionTypes.DOC_UPDATE_REQUEST:
@@ -95,7 +128,8 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isShowingDialog: true,
           isUpdatingDoc: true,
           confirmDelete: false
-        })
+        }),
+        error: null
       }))
     );
   case actionTypes.DOC_UPDATE_SUCCESS:
@@ -112,8 +146,8 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isUpdatingDoc: false,
           isShowingDialog: false,
           confirmDelete: false
-        })
-
+        }),
+        error: null
       }))
     );
   case actionTypes.DOC_DELETE_REQUEST:
@@ -142,8 +176,8 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isUpdatingDoc: false,
           isShowingDialog: false,
           confirmDelete: false
-        })
-
+        }),
+        error: null
       }))
     );
   case actionTypes.DOC_CREATE_REQUEST:
@@ -155,7 +189,8 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isUpdatingDoc: false,
           isShowingDialog: true,
           confirmDelete: false
-        })
+        }),
+        error: null
       }))
     );
   case actionTypes.DOC_CREATE_SUCCESS:
@@ -173,7 +208,29 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isUpdatingDoc: false,
           isShowingDialog: false,
           confirmDelete: false
-        })
+        }),
+        error: null
+      }))
+    );
+  case actionTypes.DOC_CREATE_FAILURE:
+  case actionTypes.DOC_GET_FAILURE:
+  case actionTypes.DOC_DELETE_FAILURE:
+  case actionTypes.DOC_UPDATE_FAILURE:
+    return (
+      state.merge(Map({
+        isFetching: false,
+        document: Map({
+          docContent: Map({
+            title: '',
+            accessLevel: '',
+            content: '',
+            role: ''
+          }),
+          isUpdatingDoc: false,
+          isShowingDialog: false,
+          confirmDelete: false
+        }),
+        error: fromJS(action.error)
       }))
     );
   default:

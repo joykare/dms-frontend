@@ -122,7 +122,7 @@ export function fetchDoc() {
         .then(response => {
           dispatch(docSuccess(response.body));
         }).catch(err => {
-          dispatch(docFailure(err));
+          dispatch(docFailure(err.response.body));
         })
     );
   };
@@ -139,7 +139,7 @@ export function createDoc(doc) {
         .then(response => {
           dispatch(docCreateSuccess(response.body));
         }).catch(err => {
-          dispatch(docCreateFailure(err));
+          dispatch(docCreateFailure(err.response.body));
         })
     );
   };
@@ -156,7 +156,7 @@ export function editDoc(doc) {
         .then(response => {
           dispatch(docUpdateSuccess(response.body));
         }).catch(err => {
-          dispatch(docUpdateFailure(err));
+          dispatch(docUpdateFailure(err.response.body));
         })
     );
   };
@@ -172,7 +172,7 @@ export function deleteDoc(doc) {
         .then(response => {
           dispatch(docDeleteSuccess(response.body));
         }).catch(err => {
-          dispatch(docDeleteFailure(err));
+          dispatch(docDeleteFailure(err.response.body));
         })
     );
   };
