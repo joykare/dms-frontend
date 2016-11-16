@@ -24,17 +24,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
     return (
       state.merge(Map({
         isFetching: true,
-        document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
-          isUpdatingDoc: false,
-          isShowingDialog: false,
-          confirmDelete: false
-        }),
+        document: INITIAL_DOC_STATE.getIn(['document']),
         error: null
       }))
     );
@@ -43,17 +33,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         docList: fromJS(action.doc),
-        document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
-          isUpdatingDoc: false,
-          isShowingDialog: false,
-          confirmDelete: false
-        }),
+        document: INITIAL_DOC_STATE.getIn(['document']),
         error: null
       }))
     );
@@ -62,12 +42,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
+          docContent: INITIAL_DOC_STATE.getIn(['document', 'docContent']),
           isUpdatingDoc: false,
           isShowingDialog: true,
           confirmDelete: false
@@ -79,17 +54,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
     return (
       state.merge(Map({
         isFetching: false,
-        document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
-          isUpdatingDoc: false,
-          isShowingDialog: false,
-          confirmDelete: false
-        }),
+        document: INITIAL_DOC_STATE.getIn(['document']),
         error: null
       }))
     );
@@ -98,7 +63,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         document: Map({
-          docContent: state.get('document').get('docContent').merge(fromJS(action.doc)),
+          docContent: state.getIn(['document', 'docContent']).merge(fromJS(action.doc)),
           isUpdatingDoc: true,
           isShowingDialog: true,
           confirmDelete: false
@@ -136,17 +101,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
     return (
       state.merge(Map({
         isFetching: false,
-        document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
-          isUpdatingDoc: false,
-          isShowingDialog: false,
-          confirmDelete: false
-        }),
+        document: INITIAL_DOC_STATE.getIn(['document']),
         error: null
       }))
     );
@@ -159,24 +114,15 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isShowingDialog: false,
           isUpdatingDoc: false,
           confirmDelete: false
-        })
+        }),
+        error: null
       }))
     );
   case actionTypes.DOC_DELETE_SUCCESS:
     return (
       state.merge(Map({
         isFetching: false,
-        document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
-          isUpdatingDoc: false,
-          isShowingDialog: false,
-          confirmDelete: false
-        }),
+        document: INITIAL_DOC_STATE.getIn(['document']),
         error: null
       }))
     );
@@ -198,17 +144,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         docList: state.get('docList').push(fromJS(action.doc)),
-        document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
-          isUpdatingDoc: false,
-          isShowingDialog: false,
-          confirmDelete: false
-        }),
+        document: INITIAL_DOC_STATE.getIn(['document']),
         error: null
       }))
     );
@@ -219,17 +155,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
     return (
       state.merge(Map({
         isFetching: false,
-        document: Map({
-          docContent: Map({
-            title: '',
-            accessLevel: '',
-            content: '',
-            role: ''
-          }),
-          isUpdatingDoc: false,
-          isShowingDialog: false,
-          confirmDelete: false
-        }),
+        document: INITIAL_DOC_STATE.getIn(['document']),
         error: fromJS(action.error)
       }))
     );
