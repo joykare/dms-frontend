@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Card, CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Avatar from 'material-ui/Avatar';
 
-const Document = () => {
+const Document = (props) => {
   return (
     <Card>
      <CardHeader
@@ -28,19 +28,28 @@ const Document = () => {
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         targetOrigin={{horizontal: 'right', vertical: 'top'}}
         >
-        <MenuItem primaryText="Edit Document" />
-        <MenuItem primaryText="Delete Document" />
+        <MenuItem primaryText="Edit Document" onTouchTap={() => props.onUpdate(props.document)}/>
+        <MenuItem primaryText="Delete Document" onTouchTap={() => props.onDelete(props.document)}/>
       </IconMenu>
      </CardHeader>
-     <CardTitle title="Doc Title" />
+     <CardTitle title={props.document.title} />
      <CardText>
-       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-       Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-       Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-       Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+       {props.document.content}
      </CardText>
    </Card>
   );
+};
+
+Document.propTypes = {
+  document: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    content: PropTypes.string,
+    role: PropTypes.string
+  }),
+  key: PropTypes.string,
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func
 };
 
 export default Document;

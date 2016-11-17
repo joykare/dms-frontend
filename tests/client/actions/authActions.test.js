@@ -22,56 +22,56 @@ describe('async authentication actions', () => {
     user: 'user'
   };
 
-  beforeEach(function(){
+  beforeEach(() => {
     mock.clearRoutes();
   });
 
-  // it('simulates successful login', () => {
-  //   mock
-  //     .post('/api/users/login', () => {
-  //       return {
-  //         body: user
-  //       };
-  //     });
-  //
-  //   const expectedActions = [{
-  //     type: actionTypes.LOGIN_REQUEST,
-  //     credentials
-  //   }, {
-  //     type: actionTypes.LOGIN_SUCCESS,
-  //     user
-  //   }];
-  //
-  //   const store = mockStore({});
-  //
-  //   return store.dispatch(actionCreators.loginUser(credentials))
-  //     .then(() => {
-  //       expect(store.getActions()).to.eql(expectedActions);
-  //     });
-  // });
-  //
-  // it('simulates successful signup', () => {
-  //   mock
-  //     .post('/api/users', () => {
-  //       return {
-  //         body: user
-  //       };
-  //     });
-  //   const expectedActions = [{
-  //     type: actionTypes.SIGNUP_REQUEST,
-  //     credentials
-  //   }, {
-  //     type: actionTypes.SIGNUP_SUCCESS,
-  //     user
-  //   }];
-  //
-  //   const store = mockStore({});
-  //
-  //   return store.dispatch(actionCreators.signupUser(credentials))
-  //     .then(() => {
-  //       expect(store.getActions()).to.eql(expectedActions);
-  //     });
-  // });
+  it('simulates successful login', () => {
+    mock
+      .post('/api/users/login', () => {
+        return {
+          body: user
+        };
+      });
+
+    const expectedActions = [{
+      type: actionTypes.LOGIN_REQUEST,
+      credentials
+    }, {
+      type: actionTypes.LOGIN_SUCCESS,
+      user
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actionCreators.loginUser(credentials))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+      });
+  });
+
+  it('simulates successful signup', () => {
+    mock
+      .post('/api/users', () => {
+        return {
+          body: user
+        };
+      });
+    const expectedActions = [{
+      type: actionTypes.SIGNUP_REQUEST,
+      credentials
+    }, {
+      type: actionTypes.SIGNUP_SUCCESS,
+      user
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actionCreators.signupUser(credentials))
+      .then(() => {
+        expect(store.getActions()).to.eql(expectedActions);
+      });
+  });
 
   it('simulates failed login', () => {
     mock

@@ -2,7 +2,8 @@ import React from 'react';
 import AppBar from '../Appbar/AppBar';
 import ToolBar from '../Appbar/ToolBar';
 
-import Documents from '../Documents/DocumentList';
+import DocumentsContainer from '../../containers/Documents/DocumentContainer';
+import CreateDocumentContainer from '../../containers/Documents/CreateDocumentContainer';
 
 const DashBoard = () => {
   return (
@@ -12,9 +13,9 @@ const DashBoard = () => {
         <ToolBar />
       </div>
       <div style={{paddingTop:70}}>
-        <Documents />
-        <Documents />
+        <DocumentsContainer />
       </div>
+        <CreateDocumentContainer />
     </div>
   );
 
