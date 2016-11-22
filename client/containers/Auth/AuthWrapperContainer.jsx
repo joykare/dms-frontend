@@ -48,19 +48,25 @@ class AuthWrapperContainer extends React.Component {
   }
 
   handleLogin() {
-    this.props.authActions.loginUser(this.props.auth.get('credentials').toJS());
+    this.props.authActions.loginUser(this.props.auth.get('credentials').toJS()).then(
+      () => {
+        if(this.props.auth.get('isAuthenticated')){
+          this.context.router.push('/home');
+        }
+      }
+    );
 
-    if(this.props.auth.get('isAuthenticated')){
-      this.context.router.push('/home');
-    }
+
   }
 
   handleSignup() {
-    this.props.authActions.signupUser(this.props.auth.get('credentials').toJS());
-
-    if(this.props.auth.get('isAuthenticated')){
-      this.context.router.push('/home');
-    }
+    this.props.authActions.signupUser(this.props.auth.get('credentials').toJS()).then(
+      () => {
+        if(this.props.auth.get('isAuthenticated')){
+          this.context.router.push('/home');
+        }
+      }
+    );
   }
 
   render() {

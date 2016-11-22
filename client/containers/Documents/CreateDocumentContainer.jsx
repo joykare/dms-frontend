@@ -28,6 +28,7 @@ class CreateDocumentContainer extends React.Component {
   handleDelete() {
     let documentDetails = this.props.documents.get('document').toJS();
     this.props.documentActions.deleteDoc(documentDetails.docContent);
+
   }
 
   handleSubmit() {
@@ -73,6 +74,10 @@ class CreateDocumentContainer extends React.Component {
 CreateDocumentContainer.propTypes = {
   documents: PropTypes.object.isRequired,
   documentActions: PropTypes.object.isRequired
+};
+
+CreateDocumentContainer.contextTypes = {
+  router: PropTypes.object
 };
 
 function mapStateToProps(state){

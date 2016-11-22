@@ -113,8 +113,9 @@ export function docDeleteFailure(error) {
 
 
 export function fetchDoc() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(docRequest());
+
     return (
       request
         .get('/api/documents/')
@@ -122,14 +123,14 @@ export function fetchDoc() {
         .then(response => {
           dispatch(docSuccess(response.body));
         }).catch(err => {
-          dispatch(docFailure(err.response.body));
+          dispatch(docFailure(err.response));
         })
     );
   };
 }
 
 export function createDoc(doc) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(docCreateRequest(doc));
     return (
       request
@@ -137,9 +138,13 @@ export function createDoc(doc) {
         .set('x-access-token', tokenUtils.getAuthToken())
         .send(doc)
         .then(response => {
+          // const user = getState().auth.getIn(['user', 'user']);
+          // const docData = Object.assign({}, response.body, {
+          //   owner: user
+          // });
           dispatch(docCreateSuccess(response.body));
         }).catch(err => {
-          dispatch(docCreateFailure(err.response.body));
+          dispatch(docCreateFailure(err.response));
         })
     );
   };

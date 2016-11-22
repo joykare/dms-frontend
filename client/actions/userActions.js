@@ -1,23 +1,44 @@
-import * as constants from 'constants';
+import * as constants from '../constants';
 import * as tokenUtils from '../utils/tokenUtility';
 import request from 'superagent';
 
-export function userDetailsRequest() {
+export function userRequest() {
   return {
     type: constants.USER_GET_REQUEST
   };
 }
 
-export function userDetailsSuccess(user) {
+export function userSuccess(users) {
   return {
     type: constants.USER_GET_SUCCESS,
+    users
+  };
+}
+
+export function userFailure(error) {
+  return {
+    type: constants.USER_GET_FAILURE,
+    error
+  };
+}
+
+export function userDetailsRequest(userId) {
+  return {
+    type: constants.USER_DETAILS_REQUEST,
+    userId
+  };
+}
+
+export function userDetailsSuccess(user) {
+  return {
+    type: constants.USER_DETAILS_SUCCESS,
     user
   };
 }
 
 export function userDetailsFailure(error) {
   return {
-    type: constants.USER_GET_FAILURE,
+    type: constants.USER_DETAILS_FAILURE,
     error
   };
 }
@@ -43,17 +64,33 @@ export function userUpdateFailure(error) {
   };
 }
 
-export function fetchUser(userId) {
+export function fetchAllUsers() {
   return dispatch => {
-    dispatch(userDetailsRequest());
+    dispatch(userRequest());
     request
-      .get('/api/users/' + userId)
+      .get('/api/users/')
       .set('x-access-token', tokenUtils.getAuthToken())
       .then(response => {
-        dispatch(userDetailsSuccess(response));
+        dispatch(userSuccess(response.body));
+      }).catch(err => {
+        dispatch(userFailure(err));
+      });
+  };
+}
+
+export function fetchUser(userId) {
+  return dispatch => {
+    dispatch(userDetailsRequest(userId));
+    return(
+      request
+      .get(`/api/users/${userId}`)
+      .set('x-access-token', tokenUtils.getAuthToken())
+      .then(response => {
+        dispatch(userDetailsSuccess(response.body));
       }).catch(err => {
         dispatch(userDetailsFailure(err));
-      });
+      })
+    );
   };
 }
 

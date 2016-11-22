@@ -4,10 +4,13 @@ var Role = require('../models/role');
 module.exports = {
   create: function(req, res) {
     var document = new Document();
-
+    console.log('Im here',req.decoded);
     document.ownerId = req.decoded._id || req.body.ownerId;
+    document.ownerName = req.decoded.name.first + ' ' + req.decoded.name.last,
+    document.ownerEmail = req.decoded.email,
     document.title = req.body.title;
     document.content = req.body.content;
+    document.roleTitle = req.decoded.role.title;
     document.role = req.decoded.role;
     if (req.body.accessLevel) {
       document.accessLevel = req.body.accessLevel;
