@@ -11,6 +11,18 @@ var documentSchema = new Schema ({
     unique: true,
     required: true
   },
+  ownerName: {
+    type: String
+  },
+  ownerEmail: {
+    type: String
+  },
+  permissions: {
+    type: String
+  },
+  roleTitle: {
+    type: String
+  },
   accessLevel: {
     type: String,
     required: true,

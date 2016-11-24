@@ -1,28 +1,33 @@
 import React, {PropTypes} from 'react';
 import Document from './Document';
+// import UserList from '../User/UserList';
 
 const DocumentList = (props) => {
+  console.log(props);
   return (
-    <div className='row'>
-
+    <div>
+      <div className='col-xs-12'>
       {props.documents && props.documents.length
-      ? props.documents.map((doc) => (
-        <div className='col-xs-12' style={{padding: 30}} key={doc._id}>
+      ? props.documents.map((doc) => {
+        return (
+        <div style={{paddingTop: 30, paddingLeft:200, paddingRight:200}} key={doc._id}>
           <Document document={doc}
                     onUpdate={props.onUpdate}
-                    onDelete={props.onDelete}/>
+                    onDelete={props.onDelete}
+                    showEditMenu={props.showEditMenu(doc)}/>
         </div>
-      )) : <span> No docs found </span>}
-
+      ) }): <span> No docs found </span>}
+      </div>
     </div>
-
   );
 };
 
 DocumentList.propTypes = {
+  userDetails: PropTypes.func,
   documents: PropTypes.array.isRequired,
   onUpdate: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  showEditMenu: PropTypes.bool
 };
 
 

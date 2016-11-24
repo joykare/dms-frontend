@@ -76,6 +76,13 @@ export function toggleClose() {
   };
 }
 
+export function setFilter(filter) {
+  return {
+    type: constants.SET_DOC_FILTER,
+    filter
+  };
+}
+
 export function docUpdateSuccess(doc) {
   return {
     type: constants.DOC_UPDATE_SUCCESS,
@@ -113,8 +120,9 @@ export function docDeleteFailure(error) {
 
 
 export function fetchDoc() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(docRequest());
+
     return (
       request
         .get('/api/documents/')
@@ -129,7 +137,7 @@ export function fetchDoc() {
 }
 
 export function createDoc(doc) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(docCreateRequest(doc));
     return (
       request

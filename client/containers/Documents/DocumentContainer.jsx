@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as documentActions from '../../actions/documentActions';
+// import * as userActions from '../../actions/userActions';
 import DocumentList from '../../components/Documents/DocumentList';
 
 class DocumentContainer extends React.Component {
@@ -9,7 +10,8 @@ class DocumentContainer extends React.Component {
     super(props);
     this.toggleUpdateDocument = this.toggleUpdateDocument.bind(this);
     this.toggleDeleteDocument = this.toggleDeleteDocument.bind(this);
-
+    this.handleEditingMenu = this.handleEditingMenu.bind(this);
+    this.handleDisplayDocuments = this.handleDisplayDocuments.bind(this);
   }
 
   componentDidMount() {
@@ -24,29 +26,61 @@ class DocumentContainer extends React.Component {
     this.props.documentActions.toggleDeleteDocument(doc);
   }
 
+  handleVisibilty(documents, filter) {
+    if (filter === 'all') {
+      return documents;
+    }
+    return (
+      documents.filter((document)=>(
+        document.accessLevel ===  filter
+      ))
+    );
+  }
+
+  handleDisplayDocuments() {
+    return (
+      this.props.selectedDocuments
+      ?
+      this.props.selectedDocuments : this.handleVisibilty(
+        this.props.documents.get('docList').toJS(), this.props.documents.get('docFilter'))
+    );
+  }
+
+  handleEditingMenu(doc){
+    const loggedUser = this.props.auth.getIn(['user', 'user']).toJS();
+    return (
+      loggedUser && loggedUser.role.title === 'admin' || loggedUser._id === doc.ownerId
+    );
+  }
+
   render() {
     return (
-      <DocumentList documents={this.props.documents.get('docList').toJS()}
+      <DocumentList documents={this.handleDisplayDocuments()}
                     onUpdate={this.toggleUpdateDocument}
-                    onDelete={this.toggleDeleteDocument}/>
+                    onDelete={this.toggleDeleteDocument}
+                    showEditMenu={this.handleEditingMenu}/>
     );
   }
 }
 
 DocumentContainer.propTypes = {
   documentActions: PropTypes.object.isRequired,
-  documents: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  documents: PropTypes.object.isRequired,
+  selectedDocuments: PropTypes.array
 };
 
 function mapStateToProps(state){
   return {
-    documents: state.documents
+    documents: state.documents,
+    auth: state.auth
   };
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    documentActions: bindActionCreators(documentActions, dispatch)
+    documentActions: bindActionCreators(documentActions, dispatch),
+    // userActions: bindActionCreators(userActions, dispatch)
   };
 }
 

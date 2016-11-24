@@ -7,7 +7,7 @@ var config = require('../../config/config');
 module.exports = {
   login: function(req, res) {
     User.findOne( {email: req.body.email} )
-      .select('email password role')
+      .select('name email password role')
       .populate('role')
       .exec(function(err, user) {
         if (err) {
@@ -28,8 +28,10 @@ module.exports = {
           } else {
             var token = jwt.sign({
               _id: user._id,
+              user: user,
               email: user.email,
-              role: user.role
+              role: user.role,
+              name: user.name
             }, config.secret, {
               expiresIn: '24h'
             });
