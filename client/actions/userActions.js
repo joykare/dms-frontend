@@ -22,10 +22,9 @@ export function userFailure(error) {
   };
 }
 
-export function userDetailsRequest(userId) {
+export function userDetailsRequest() {
   return {
-    type: constants.USER_DETAILS_REQUEST,
-    userId
+    type: constants.USER_DETAILS_REQUEST
   };
 }
 
@@ -64,6 +63,39 @@ export function userUpdateFailure(error) {
   };
 }
 
+export function userDocumentsRequest(user) {
+  return {
+    type: constants.USER_DOC_REQUEST,
+    user
+  };
+}
+
+export function userDocumentsSuccess(documents) {
+  return {
+    type: constants.USER_DOC_SUCCESS,
+    documents
+  };
+}
+
+export function userDocumentsFailure(error) {
+  return {
+    type: constants.USER_DOC_FAILURE,
+    error
+  };
+}
+
+export function editUserToggle() {
+  return {
+    type: constants.USER_EDIT_TOGGLE
+  };
+}
+
+export function closeUserToggle() {
+  return {
+    type: constants.USER_CLOSE_TOGGLE
+  };
+}
+
 export function fetchAllUsers() {
   return dispatch => {
     dispatch(userRequest());
@@ -94,16 +126,36 @@ export function fetchUser(userId) {
   };
 }
 
-export function editUser(userId) {
+export function editUser(user) {
   return dispatch => {
     dispatch(userDetailsRequest());
     request
-      .get('/api/users/' + userId)
+      .put(`/api/users/${user._id}`)
       .set('x-access-token', tokenUtils.getAuthToken())
+      .send(user)
       .then(response => {
-        dispatch(userDetailsSuccess(response));
+        console.log(response.body);
+        dispatch(userDetailsSuccess(response.body));
       }).catch(err => {
         dispatch(userDetailsFailure(err));
       });
+  };
+}
+
+export function fetchUserDocuments(user) {
+  return dispatch => {
+    dispatch(userDocumentsRequest(user));
+    return (
+      request
+        .get(`/api/users/${user._id}/documents`)
+        .set('x-access-token', tokenUtils.getAuthToken())
+        .then(response => {
+          console.log(response.body);
+          dispatch(userDocumentsSuccess(response.body));
+        }).catch(err => {
+          dispatch(userDocumentsFailure(err));
+        })
+
+    );
   };
 }

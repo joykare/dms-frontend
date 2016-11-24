@@ -13,6 +13,7 @@ class UserContainer extends React.Component {
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
   }
   componentDidMount() {
     this.props.userActions.fetchAllUsers();
@@ -22,6 +23,12 @@ class UserContainer extends React.Component {
     this.setState({
       open: false
     });
+  }
+
+  handleSelect(user) {
+    this.props.userActions.fetchUserDocuments(user).then(() =>
+      this.context.router.push('/profile')
+    );
   }
 
   handleOpen() {
@@ -37,7 +44,10 @@ class UserContainer extends React.Component {
               auth={this.props.auth.getIn(['user', 'user']).toJS()}
               users={this.props.users.get('users').toJS()}
               isOpen={this.state}
-              onClose={this.handleClose}/>
+              onClose={this.handleClose}
+              onSelectUser={this.handleSelect}
+              />
+
 
       </div>
     );
@@ -49,6 +59,10 @@ UserContainer.propTypes = {
   users: PropTypes.object,
   auth: PropTypes.object
 
+};
+
+UserContainer.contextTypes = {
+  router: PropTypes.object
 };
 
 function mapStateToProps(state) {

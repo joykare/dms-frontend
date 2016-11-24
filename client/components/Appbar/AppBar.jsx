@@ -51,7 +51,7 @@ const NavBar = (props) => {
         <ListItem
         key={user._id}
         primaryText={user.username}
-        onTouchTap={props.onClose}
+        onTouchTap={() => props.onSelectUser(user)}
         leftAvatar={<Gravatar email={md5(user.email)}  size={40} rating="pg" default="identicon" className="CustomAvatar-image" />}
       />
       ))
@@ -69,6 +69,7 @@ NavBar.propTypes = {
   muiTheme: PropTypes.object,
   openDrawer: PropTypes.func,
   onClose: PropTypes.func,
+  onSelectUser: PropTypes.func,
   isOpen: PropTypes.object
 };
 
