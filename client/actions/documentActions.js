@@ -76,6 +76,13 @@ export function toggleClose() {
   };
 }
 
+export function setFilter(filter) {
+  return {
+    type: constants.SET_DOC_FILTER,
+    filter
+  };
+}
+
 export function docUpdateSuccess(doc) {
   return {
     type: constants.DOC_UPDATE_SUCCESS,

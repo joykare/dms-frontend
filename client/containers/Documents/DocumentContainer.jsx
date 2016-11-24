@@ -10,8 +10,8 @@ class DocumentContainer extends React.Component {
     super(props);
     this.toggleUpdateDocument = this.toggleUpdateDocument.bind(this);
     this.toggleDeleteDocument = this.toggleDeleteDocument.bind(this);
-    this.handleUserDetails = this.handleUserDetails.bind(this);
-
+    this.handleEditingMenu = this.handleEditingMenu.bind(this);
+    this.handleDisplayDocuments = this.handleDisplayDocuments.bind(this);
   }
 
   componentDidMount() {
@@ -26,32 +26,54 @@ class DocumentContainer extends React.Component {
     this.props.documentActions.toggleDeleteDocument(doc);
   }
 
-  handleUserDetails(userId) {
-    console.log(userId);
-    // this.props.userActions.fetchUser(userId).then((user) => {
-    //   this.props.documents.get('docList')
-    // } );
+  handleVisibilty(documents, filter) {
+    if (filter === 'all') {
+      return documents;
+    }
+    return (
+      documents.filter((document)=>(
+        document.accessLevel ===  filter
+      ))
+    );
+  }
+
+  handleDisplayDocuments() {
+    return (
+      this.props.selectedDocuments
+      ?
+      this.props.selectedDocuments : this.handleVisibilty(
+        this.props.documents.get('docList').toJS(), this.props.documents.get('docFilter'))
+    );
+  }
+
+  handleEditingMenu(doc){
+    const loggedUser = this.props.auth.getIn(['user', 'user']).toJS();
+    return (
+      loggedUser && loggedUser.role.title === 'admin' || loggedUser._id === doc.ownerId
+    );
   }
 
   render() {
     return (
-      <DocumentList documents={this.props.documents.get('docList').toJS()}
-                    userDetails={this.handleUserDetails}
+      <DocumentList documents={this.handleDisplayDocuments()}
                     onUpdate={this.toggleUpdateDocument}
-                    onDelete={this.toggleDeleteDocument}/>
+                    onDelete={this.toggleDeleteDocument}
+                    showEditMenu={this.handleEditingMenu}/>
     );
   }
 }
 
 DocumentContainer.propTypes = {
   documentActions: PropTypes.object.isRequired,
-  userActions: PropTypes.object.isRequired,
-  documents: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  documents: PropTypes.object.isRequired,
+  selectedDocuments: PropTypes.array
 };
 
 function mapStateToProps(state){
   return {
-    documents: state.documents
+    documents: state.documents,
+    auth: state.auth
   };
 }
 

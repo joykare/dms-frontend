@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Menu from '../Documents/Menu';
+import MenuContainer from '../../containers/Documents/MenuContainer';
 // import AppBar from '../Appbar/AppBar';
 // import ToolBar from '../Appbar/ToolBar';
 // import UserList from '../User/UserList';
@@ -15,7 +15,7 @@ const DashBoard = () => {
         <UserContainer />
       </div>
       <div style={{paddingRight: 200, float: 'right'}}>
-      <Menu/>
+      <MenuContainer />
       </div>
       <div style={{paddingTop:70}}>
         <DocumentsContainer />

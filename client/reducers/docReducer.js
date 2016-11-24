@@ -15,6 +15,7 @@ export const INITIAL_DOC_STATE = Map({
     isShowingDialog: false,
     confirmDelete: false
   }),
+  docFilter: 'all',
   error: null
 });
 
@@ -79,7 +80,8 @@ export default function(state = INITIAL_DOC_STATE, action) {
           docContent: state.get('document').get('docContent').merge(fromJS(action.doc)),
           isShowingDialog: false,
           isUpdatingDoc: false,
-          confirmDelete: true
+          confirmDelete: true,
+
         }),
         error: null
       }))
@@ -114,6 +116,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isShowingDialog: false,
           isUpdatingDoc: false,
           confirmDelete: false
+
         }),
         error: null
       }))
@@ -145,6 +148,14 @@ export default function(state = INITIAL_DOC_STATE, action) {
         isFetching: false,
         docList: state.get('docList').push(fromJS(action.doc)),
         document: INITIAL_DOC_STATE.getIn(['document']),
+        error: null
+      }))
+    );
+  case actionTypes.SET_DOC_FILTER:
+    return (
+      state.merge(Map({
+        isFetching: false,
+        docFilter: action.filter,
         error: null
       }))
     );

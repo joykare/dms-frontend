@@ -4,10 +4,11 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
 import md5 from 'blueimp-md5';
-import DocumentList from '../Documents/DocumentList';
+import DocumentContainer from '../../containers/Documents/DocumentContainer';
 import AppBar from 'material-ui/AppBar';
 
-const ProfilePage = (props) => (
+const ProfilePage = (props) => {
+  return(
   <div>
     <AppBar
       showMenuIconButton={false}
@@ -23,9 +24,11 @@ const ProfilePage = (props) => (
         </CardMedia>
           <CardText>
           </CardText>
+          { props.canEdit(props.user) ?
           <CardActions>
             <FlatButton label='Edit' onClick={props.editUserToggle} primary={true}/>
-          </CardActions>
+          </CardActions> : <span></span>
+          }
         </Card> :
         <Card style={{width: 400, marginLeft: 200, marginTop: 40}}>
           <CardMedia
@@ -71,11 +74,12 @@ const ProfilePage = (props) => (
       }
       </div>
       <div className='col-xs-8'>
-        <DocumentList documents={props.documents}/>
+        <DocumentContainer selectedDocuments={props.documents}/>/
       </div>
     </div>
   </div>
-);
+  );
+};
 
 ProfilePage.propTypes = {
   userStateInfo: PropTypes.object,
@@ -86,7 +90,8 @@ ProfilePage.propTypes = {
   onSubmit: PropTypes.func,
   onClose: PropTypes.func,
   onUpdate: PropTypes.func,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
+  canEdit: PropTypes.func
 };
 
 export default ProfilePage;

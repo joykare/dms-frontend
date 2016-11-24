@@ -55,10 +55,11 @@ const CreateDocument = (props) => {
         /><br />
         <SelectField
           floatingLabelText='Access Level'
-          value={1}
+          onChange={props.setAccess}
+          value={props.document.docContent.accessLevel || 'public'}
         >
-          <MenuItem value={1} primaryText='Public' />
-          <MenuItem value={2} primaryText='Private' />
+          <MenuItem value='public' primaryText='Public' />
+          <MenuItem value='private' primaryText='Private' />
         </SelectField>
       </Dialog>
     </div>
@@ -68,6 +69,7 @@ const CreateDocument = (props) => {
 CreateDocument.propTypes = {
   document: PropTypes.object.isRequired,
   onCreate: PropTypes.func,
+  setAccess: PropTypes.func,
   isShowing: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,

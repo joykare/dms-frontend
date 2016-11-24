@@ -15,6 +15,8 @@ class CreateDocumentContainer extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleAccess = this.handleAccess.bind(this);
+    this.updateDocument = this.updateDocument.bind(this);
   }
 
   toggleCreate() {
@@ -23,6 +25,22 @@ class CreateDocumentContainer extends React.Component {
 
   handleClose() {
     this.props.documentActions.toggleClose();
+  }
+
+  handleAccess(event, index, value) {
+    this.updateDocument('accessLevel', value);
+  }
+
+  updateDocument(field, value) {
+    let document = this.props.documents.get('document');
+    let docContent = document.get('docContent');
+    docContent = docContent.set(field, value);
+
+    if(document.get('isUpdatingDoc')){
+      this.props.documentActions.docUpdateRequest(docContent.toJS());
+    } else {
+      this.props.documentActions.docCreateRequest(docContent.toJS());
+    }
   }
 
   handleDelete() {
@@ -42,16 +60,7 @@ class CreateDocumentContainer extends React.Component {
 
   handleChange(event) {
     event.preventDefault();
-    let document = this.props.documents.get('document');
-    let docContent = document.get('docContent');
-    docContent = docContent.set(event.target.name, event.target.value);
-
-    if(document.get('isUpdatingDoc')){
-      this.props.documentActions.docUpdateRequest(docContent.toJS());
-    } else {
-      this.props.documentActions.docCreateRequest(docContent.toJS());
-    }
-
+    this.updateDocument(event.target.name, event.target.value);
   }
 
   render() {
@@ -61,6 +70,7 @@ class CreateDocumentContainer extends React.Component {
                         onChange={this.handleChange}
                         onCreate={this.toggleCreate}
                         onClose={this.handleClose}
+                        setAccess={this.handleAccess}
                         isShowing={this.state.open}
                         onSubmit={this.handleSubmit} />
         <ConfirmDelete document={this.props.documents.get('document').toJS()}

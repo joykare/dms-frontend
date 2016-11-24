@@ -12,10 +12,18 @@ class ProfilePageContainer extends React.Component {
     this.handleSubmit= this.handleSubmit.bind(this);
     this.handleChange= this.handleChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleShowEdit = this.handleShowEdit.bind(this);
   }
 
   handleEditToggle() {
     this.props.userActions.editUserToggle();
+  }
+
+  handleShowEdit(user) {
+    const loggedUser = this.props.auth.getIn(['user', 'user']).toJS();
+    return(
+      loggedUser && loggedUser.role.title === 'admin' || loggedUser._id === user._id
+    );
   }
 
   handleClose() {
@@ -40,6 +48,7 @@ class ProfilePageContainer extends React.Component {
                     onClose={this.handleClose}
                     onChange={this.handleChange}
                     onSubmit={this.handleSubmit}
+                    canEdit={this.handleShowEdit}
                     user={this.props.users.get('userDetails').toJS()}
                     editUserToggle={this.handleEditToggle}/>
     );
@@ -48,12 +57,14 @@ class ProfilePageContainer extends React.Component {
 
 ProfilePageContainer.propTypes = {
   users: PropTypes.object,
+  auth: PropTypes.object,
   userActions: PropTypes.object
 };
 
 function mapStateToProps(state) {
   return {
-    users: state.user
+    users: state.user,
+    auth: state.auth
   };
 }
 
