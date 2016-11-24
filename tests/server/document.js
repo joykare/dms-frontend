@@ -197,7 +197,8 @@ describe('document test suite', function() {
           expect(res.body).to.exist;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.keys('_id', 'title', 'content', 'role',
-            'modifiedAt', 'ownerId', 'accessLevel', 'createdAt', '__v');
+            'modifiedAt', 'ownerId', 'accessLevel', 'ownerEmail', 'ownerName',
+            'roleTitle','createdAt', '__v');
           done();
         });
     });

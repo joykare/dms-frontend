@@ -130,14 +130,14 @@ export function fetchDoc() {
         .then(response => {
           dispatch(docSuccess(response.body));
         }).catch(err => {
-          dispatch(docFailure(err.response));
+          dispatch(docFailure(err.response.body));
         })
     );
   };
 }
 
 export function createDoc(doc) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(docCreateRequest(doc));
     return (
       request
@@ -145,13 +145,9 @@ export function createDoc(doc) {
         .set('x-access-token', tokenUtils.getAuthToken())
         .send(doc)
         .then(response => {
-          // const user = getState().auth.getIn(['user', 'user']);
-          // const docData = Object.assign({}, response.body, {
-          //   owner: user
-          // });
           dispatch(docCreateSuccess(response.body));
         }).catch(err => {
-          dispatch(docCreateFailure(err.response));
+          dispatch(docCreateFailure(err.response.body));
         })
     );
   };
