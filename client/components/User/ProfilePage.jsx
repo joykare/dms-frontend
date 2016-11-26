@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
-import {Card, CardActions, CardHeader, CardTitle, CardMedia, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardTitle, CardMedia, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
 import md5 from 'blueimp-md5';
 import DocumentContainer from '../../containers/Documents/DocumentContainer';
 import AppBar from 'material-ui/AppBar';
+import CreateIcon from 'material-ui/svg-icons/content/create';
 
 const ProfilePage = (props) => {
   return(
@@ -16,7 +17,7 @@ const ProfilePage = (props) => {
     <div className='row' style={{padding: 20}}>
     <div className='col-xs-4'>
       {!props.userStateInfo.isEditing ?
-        <Card style={{width: 400, marginLeft: 200, marginTop: 40}}>
+        <Card style={{width: 350, marginLeft: 200, marginTop: 40}}>
           <CardMedia
           overlay={<CardTitle title={props.user.username} />}
         >
@@ -26,7 +27,7 @@ const ProfilePage = (props) => {
           </CardText>
           { props.canEdit(props.user) ?
           <CardActions>
-            <FlatButton label='Edit' onClick={props.editUserToggle} primary={true}/>
+            <FlatButton label='Edit Profile' onClick={props.editUserToggle} icon={<CreateIcon />} primary={true}/>
           </CardActions> : <span></span>
           }
         </Card> :

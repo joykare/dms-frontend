@@ -9,7 +9,6 @@ import md5 from 'blueimp-md5';
 import Chip from 'material-ui/Chip';
 
 const Document = (props) => {
-  console.log(props);
   return (
     <Card>
      <CardHeader

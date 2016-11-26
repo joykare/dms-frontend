@@ -30,6 +30,12 @@ export default function(state = INITIAL_STATE, action) {
         credentials: fromJS(action.credentials)
       }))
     );
+  case actionTypes.LOGOUT_REQUEST:
+    return (
+      state.merge(Map({
+        isAuthenticated: false
+      }))
+    );
   case actionTypes.LOGIN_SUCCESS:
   case actionTypes.SIGNUP_SUCCESS:
     return(

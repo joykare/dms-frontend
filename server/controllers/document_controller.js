@@ -4,8 +4,12 @@ var Role = require('../models/role');
 module.exports = {
   create: function(req, res) {
     var document = new Document();
+    var upperCaseFirst = (name) => {
+      return name.replace(/[a-z]/, name[0].toUpperCase());
+    };
+
     document.ownerId = req.decoded._id || req.body.ownerId;
-    document.ownerName = req.decoded.name.first + ' ' + req.decoded.name.last,
+    document.ownerName = upperCaseFirst(req.decoded.name.first) + ' ' + upperCaseFirst(req.decoded.name.last),
     document.ownerEmail = req.decoded.email,
     document.title = req.body.title;
     document.content = req.body.content;

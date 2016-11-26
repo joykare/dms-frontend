@@ -1,7 +1,7 @@
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as userActions from '../../actions/userActions';
-// import DrawerComp from '../../components/Appbar/Drawer';
+import * as authActions from '../../actions/authActions';
 import React, {PropTypes} from 'react';
 import NavBar from '../../components/Appbar/AppBar';
 
@@ -14,9 +14,15 @@ class UserContainer extends React.Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
   componentDidMount() {
     this.props.userActions.fetchAllUsers();
+  }
+
+  handleLogOut() {
+    this.props.authActions.logoutUser();
+    this.context.router.push('/');
   }
 
   handleClose() {
@@ -45,6 +51,7 @@ class UserContainer extends React.Component {
               users={this.props.users.get('users').toJS()}
               isOpen={this.state}
               onClose={this.handleClose}
+              onLogOut={this.handleLogOut}
               onSelectUser={this.handleSelect}
               />
 
@@ -57,7 +64,8 @@ class UserContainer extends React.Component {
 UserContainer.propTypes = {
   userActions: PropTypes.object.isRequired,
   users: PropTypes.object,
-  auth: PropTypes.object
+  auth: PropTypes.object,
+  authActions: PropTypes.object
 
 };
 
@@ -74,7 +82,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    userActions: bindActionCreators(userActions, dispatch)
+    userActions: bindActionCreators(userActions, dispatch),
+    authActions: bindActionCreators(authActions, dispatch)
   };
 }
 
