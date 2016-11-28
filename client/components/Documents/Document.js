@@ -54,7 +54,7 @@ Document.propTypes = {
     roleTitle: PropTypes.string,
     accessLevel: PropTypes.string
   }),
-  showEditMenu: PropTypes.func,
+  showEditMenu: PropTypes.bool,
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func
 };

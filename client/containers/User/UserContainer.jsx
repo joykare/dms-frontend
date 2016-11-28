@@ -4,6 +4,7 @@ import * as userActions from '../../actions/userActions';
 import * as authActions from '../../actions/authActions';
 import React, {PropTypes} from 'react';
 import NavBar from '../../components/Appbar/AppBar';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class UserContainer extends React.Component {
   constructor(props) {
@@ -45,18 +46,16 @@ class UserContainer extends React.Component {
 
   render() {
     return (
-      <div>
-      <NavBar openDrawer={this.handleOpen}
-              auth={this.props.auth.getIn(['user', 'user']).toJS()}
-              users={this.props.users.get('users').toJS()}
-              isOpen={this.state}
-              onClose={this.handleClose}
-              onLogOut={this.handleLogOut}
-              onSelectUser={this.handleSelect}
-              />
-
-
-      </div>
+      this.props.users.isFetching ?
+        <CircularProgress size={60} thickness={5} /> :
+        <NavBar openDrawer={this.handleOpen}
+                auth={this.props.auth.getIn(['user', 'user']).toJS()}
+                users={this.props.users.get('users').toJS()}
+                isOpen={this.state}
+                onClose={this.handleClose}
+                onLogOut={this.handleLogOut}
+                onSelectUser={this.handleSelect}
+                />
     );
   }
 }

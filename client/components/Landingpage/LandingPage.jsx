@@ -21,11 +21,10 @@ const LandingPage = () => {
     <div>
       <AppBar
         showMenuIconButton={false}
+        title='Doc~sy'
       />
-      <div className='jumbotron col-sm-12 text-center' style={{backgroundColor: 'transparent'}}>
-        <h1>Doc~sy</h1>
+      <div className='jumbotron col-sm-12 text-center' style={{backgroundColor: 'transparent', marginTop: 70}}>
         <h3>Document Management System</h3>
-        <h3>Start now :) </h3>
       </div>
       <div>
         <Paper style={style} zDepth={3}>

@@ -15,7 +15,7 @@ const NavBar = (props) => {
   const upperCaseFirst = (name) => {
     return name.replace(/[a-z]/, name[0].toUpperCase());
   };
-  
+
   return (
     <div>
       <AppBar
@@ -25,7 +25,8 @@ const NavBar = (props) => {
         onLeftIconButtonTouchTap={props.openDrawer}
         iconElementRight={
           <span>
-            <FlatButton label="LOGOUT" onClick={props.onLogOut} style={{color: props.muiTheme.palette.alternateTextColor}}/>
+            <FlatButton label="LOGOUT" onClick={props.onLogOut}
+              style={{color: props.muiTheme.palette.alternateTextColor}}/>
           </span>
         }
       />
@@ -38,10 +39,19 @@ const NavBar = (props) => {
         >
 
         <div style={{backgroundColor: props.muiTheme.palette.primary1Color}}>
-          <Gravatar email={md5(props.auth.email)} style={{padding: 10, marginTop: 10}} size={80} rating="pg" default="identicon" className="CustomAvatar-image" />
-          <br/><br/>
-          <p style={{margin: 10}}>{upperCaseFirst(props.auth.name.first) + ' ' + upperCaseFirst(props.auth.name.last)}<br/></p>
-          <p style={{margin: 10}}>{props.auth.email}</p>
+          <Gravatar email={md5(props.auth.email)}
+            style={{padding: 12, marginTop: 20}} size={80} rating="pg"
+            default="identicon" className="CustomAvatar-image" />
+          <br/>
+          <p style={{margin: 12, fontSize: 14, fontWeight:500,
+            color: props.muiTheme.palette.alternateTextColor}}>
+              {upperCaseFirst(props.auth.name.first) + ' ' +
+              upperCaseFirst(props.auth.name.last)}
+          </p>
+          <p style={{margin: 12, fontSize: 14, fontWeight:500,
+            color: props.muiTheme.palette.alternateTextColor}}>
+              {props.auth.email}
+          </p>
           <br/>
         </div>
         <Divider/>
@@ -51,7 +61,7 @@ const NavBar = (props) => {
           leftIcon={<PersonIcon />}
         />
         <List>
-          <Subheader>Other users:</Subheader>
+          <Subheader>View users:</Subheader>
           {props.users && props.users.length ?
             props.users.map((user) => (
               <ListItem
@@ -59,7 +69,8 @@ const NavBar = (props) => {
               primaryText={user.username}
               onTouchTap={() => props.onSelectUser(user)}
               rightIcon={<InfoIcon />}
-              leftAvatar={<Gravatar email={md5(user.email)} size={40} rating="pg" default="identicon" className="CustomAvatar-image" />}
+              leftAvatar={<Gravatar email={md5(user.email)} size={40}
+                rating="pg" default="identicon" className="CustomAvatar-image" />}
               />
             ))
           : <span> No users found </span>

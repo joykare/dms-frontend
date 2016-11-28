@@ -25,7 +25,7 @@ class MenuContainer extends React.Component {
 
 MenuContainer.propTypes = {
   documents: PropTypes.object,
-  documentActions: PropTypes.objec
+  documentActions: PropTypes.object
 };
 
 function mapStateToProps(state){

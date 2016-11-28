@@ -49,20 +49,6 @@ export function userUpdateRequest(updates) {
   };
 }
 
-export function userUpdateSuccess(user) {
-  return {
-    type: constants.USER_UPDATE_SUCCESS,
-    user
-  };
-}
-
-export function userUpdateFailure(error) {
-  return {
-    type: constants.USER_UPDATE_FAILURE,
-    error
-  };
-}
-
 export function userDocumentsRequest(user) {
   return {
     type: constants.USER_DOC_REQUEST,
@@ -99,29 +85,15 @@ export function closeUserToggle() {
 export function fetchAllUsers() {
   return dispatch => {
     dispatch(userRequest());
-    request
-      .get('/api/users/')
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .then(response => {
-        dispatch(userSuccess(response.body));
-      }).catch(err => {
-        dispatch(userFailure(err));
-      });
-  };
-}
-
-export function fetchUser(userId) {
-  return dispatch => {
-    dispatch(userDetailsRequest(userId));
-    return(
+    return (
       request
-      .get(`/api/users/${userId}`)
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .then(response => {
-        dispatch(userDetailsSuccess(response.body));
-      }).catch(err => {
-        dispatch(userDetailsFailure(err));
-      })
+        .get('/api/users/')
+        .set('x-access-token', tokenUtils.getAuthToken())
+        .then(response => {
+          dispatch(userSuccess(response.body));
+        }).catch(err => {
+          dispatch(userFailure(err));
+        })
     );
   };
 }
@@ -129,16 +101,17 @@ export function fetchUser(userId) {
 export function editUser(user) {
   return dispatch => {
     dispatch(userDetailsRequest());
-    request
-      .put(`/api/users/${user._id}`)
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .send(user)
-      .then(response => {
-        console.log(response.body);
-        dispatch(userDetailsSuccess(response.body));
-      }).catch(err => {
-        dispatch(userDetailsFailure(err));
-      });
+    return(
+      request
+        .put(`/api/users/${user._id}`)
+        .set('x-access-token', tokenUtils.getAuthToken())
+        .send(user)
+        .then(response => {
+          dispatch(userDetailsSuccess(response.body));
+        }).catch(err => {
+          dispatch(userDetailsFailure(err));
+        })
+    );
   };
 }
 
@@ -150,7 +123,6 @@ export function fetchUserDocuments(user) {
         .get(`/api/users/${user._id}/documents`)
         .set('x-access-token', tokenUtils.getAuthToken())
         .then(response => {
-          console.log(response.body);
           dispatch(userDocumentsSuccess(response.body));
         }).catch(err => {
           dispatch(userDocumentsFailure(err));
