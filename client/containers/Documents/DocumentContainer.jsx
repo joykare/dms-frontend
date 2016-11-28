@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as documentActions from '../../actions/documentActions';
-// import * as userActions from '../../actions/userActions';
+import CircularProgress from 'material-ui/CircularProgress';
 import DocumentList from '../../components/Documents/DocumentList';
 
 class DocumentContainer extends React.Component {
@@ -55,10 +55,13 @@ class DocumentContainer extends React.Component {
 
   render() {
     return (
-      <DocumentList documents={this.handleDisplayDocuments()}
-                    onUpdate={this.toggleUpdateDocument}
-                    onDelete={this.toggleDeleteDocument}
-                    showEditMenu={this.handleEditingMenu}/>
+      this.props.documents.get('isFetching') ?
+        <CircularProgress size={80} thickness={5} /> :
+        <DocumentList documents={this.handleDisplayDocuments()}
+                      onUpdate={this.toggleUpdateDocument}
+                      onDelete={this.toggleDeleteDocument}
+                      showEditMenu={this.handleEditingMenu}/>
+
     );
   }
 }
@@ -79,8 +82,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    documentActions: bindActionCreators(documentActions, dispatch),
-    // userActions: bindActionCreators(userActions, dispatch)
+    documentActions: bindActionCreators(documentActions, dispatch)
   };
 }
 

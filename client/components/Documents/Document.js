@@ -9,7 +9,6 @@ import md5 from 'blueimp-md5';
 import Chip from 'material-ui/Chip';
 
 const Document = (props) => {
-  console.log(props);
   return (
     <Card>
      <CardHeader
@@ -55,7 +54,7 @@ Document.propTypes = {
     roleTitle: PropTypes.string,
     accessLevel: PropTypes.string
   }),
-  showEditMenu: PropTypes.func,
+  showEditMenu: PropTypes.bool,
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func
 };

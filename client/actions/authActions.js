@@ -64,6 +64,20 @@ export function validationFailure(error) {
   };
 }
 
+export function logoutRequest() {
+  return {
+    type: constants.LOGOUT_REQUEST
+  };
+}
+
+export function logoutUser() {
+  return dispatch => {
+    tokenUtils.removeAuthToken();
+    dispatch(logoutRequest());
+
+  };
+}
+
 export function loginUser(credentials) {
   return dispatch => {
     dispatch(loginRequest(credentials));

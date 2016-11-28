@@ -7,7 +7,7 @@ var config = require('../../config/config');
 module.exports = {
   login: function(req, res) {
     User.findOne( {email: req.body.email} )
-      .select('name email password role')
+      .select('name email password role username')
       .populate('role')
       .exec(function(err, user) {
         if (err) {
@@ -31,7 +31,8 @@ module.exports = {
               user: user,
               email: user.email,
               role: user.role,
-              name: user.name
+              name: user.name,
+              username: user.username
             }, config.secret, {
               expiresIn: '24h'
             });
