@@ -16,6 +16,24 @@ class ProfilePageContainer extends React.Component {
     this.handleShowEdit = this.handleShowEdit.bind(this);
     this.handleTitleTouch = this.handleTitleTouch.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.loadUserData = this.loadUserData.bind(this);
+    this.updateUser = this.updateUser.bind(this);
+    this.handleRole = this.handleRole.bind(this);
+  }
+
+  componentDidMount() {
+    const users = this.props.users.toJS();
+    if ((users.documents.length && users.users.length) === 0) {
+      this.loadUserData(this.props.params._id);
+    }
+  }
+
+  loadUserData(userId) {
+    const user = {
+      _id : userId
+    };
+    this.props.userActions.fetchUser(userId);
+    this.props.userActions.fetchUserDocuments(user);
   }
 
   handleTitleTouch() {
@@ -44,13 +62,22 @@ class ProfilePageContainer extends React.Component {
   }
 
   handleSubmit(user) {
+    console.log(user);
     this.props.userActions.editUser(user);
   }
 
   handleChange(event) {
     event.preventDefault();
+    this.updateUser(event.target.name, event.target.value);
+  }
+
+  handleRole(event, index, value) {
+    this.updateUser('role', value);
+  }
+
+  updateUser(field, value) {
     let user = this.props.users.get('userDetails');
-    user = user.set(event.target.name, event.target.value);
+    user = user.set(field, value);
     this.props.userActions.userUpdateRequest(user.toJS());
   }
 
@@ -62,6 +89,7 @@ class ProfilePageContainer extends React.Component {
                     onClose={this.handleClose}
                     onChange={this.handleChange}
                     onLogOut={this.handleLogOut}
+                    onRoleChange={this.handleRole}
                     onSubmit={this.handleSubmit}
                     canEdit={this.handleShowEdit}
                     onTitleTouchTap={this.handleTitleTouch}
@@ -73,10 +101,13 @@ class ProfilePageContainer extends React.Component {
 }
 
 ProfilePageContainer.propTypes = {
+  params: PropTypes.object,
   users: PropTypes.object,
+  roles: PropTypes.object,
   auth: PropTypes.object,
   userActions: PropTypes.object,
-  authActions: PropTypes.object
+  authActions: PropTypes.object,
+  loadUserData: PropTypes.func
 };
 
 ProfilePageContainer.contextTypes = {

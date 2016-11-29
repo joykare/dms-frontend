@@ -36,9 +36,9 @@ class UserContainer extends React.Component {
   }
 
   handleSelect(user) {
-    this.props.userActions.fetchUserDocuments(user).then(() =>
-      this.context.router.push('/profile')
-    );
+    this.props.userActions.fetchUserDocuments(user).then(() =>{
+      this.context.router.push(`/profile/${user._id}`);
+    });
   }
 
   handleOpen() {
@@ -48,7 +48,6 @@ class UserContainer extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.props.auth, null, 2))
     return (
       this.props.users.isFetching ?
         <CircularProgress size={60} thickness={5} /> :

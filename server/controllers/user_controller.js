@@ -121,6 +121,7 @@ module.exports = {
           }
           if (req.body.email) { user.email = req.body.email; }
           if (req.body.password) { user.password= req.body.password; }
+          if (req.body.role) { user.role = req.body.role; }
 
           user.save(function(err, user) {
             if (err) {

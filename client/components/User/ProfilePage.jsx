@@ -80,8 +80,8 @@ const ProfilePage = (props) => {
                   <SelectField
                     floatingLabelText='Role'
                     name='role'
-                    onChange={props.onChange}
-                    value={'user'}
+                    onChange={props.onRoleChange}
+                    value={props.user.role || 'user'}
                   >
                     {props.roles.map((role) => (
                       <MenuItem value={role._id} primaryText={role.title} />
@@ -106,6 +106,7 @@ const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   userStateInfo: PropTypes.object,
+  onRoleChange: PropTypes.func,
   documents: PropTypes.array,
   roles: PropTypes.array,
   user: PropTypes.object,

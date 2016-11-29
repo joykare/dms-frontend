@@ -16,7 +16,7 @@ const routes = (
       <Route path='/' components={Main}>
         <IndexRoute components={LandingPage} />
       <Route path='/home' components={DashBoard} />
-      <Route path='/profile' components={ProfilePage} />
+      <Route path='/profile/:_id' components={ProfilePage} />
       </Route>
     </Router>
   </Provider>
