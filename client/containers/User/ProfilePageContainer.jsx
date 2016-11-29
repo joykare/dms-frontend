@@ -34,8 +34,9 @@ class ProfilePageContainer extends React.Component {
   }
 
   handleLogOut() {
-    this.props.authActions.logoutUser();
-    this.context.router.push('/');
+    this.props.authActions.logoutUser().then(() => {
+      this.context.router.push('/');
+    });
   }
 
   handleClose() {
@@ -65,6 +66,7 @@ class ProfilePageContainer extends React.Component {
                     canEdit={this.handleShowEdit}
                     onTitleTouchTap={this.handleTitleTouch}
                     user={this.props.users.get('userDetails').toJS()}
+                    roles={this.props.roles.get('roles').toJS()}
                     editUserToggle={this.handleEditToggle}/>
     );
   }
@@ -84,7 +86,8 @@ ProfilePageContainer.contextTypes = {
 function mapStateToProps(state) {
   return {
     users: state.user,
-    auth: state.auth
+    auth: state.auth,
+    roles: state.roles
   };
 }
 

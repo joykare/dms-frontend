@@ -9,3 +9,8 @@ export function setAuthToken(token) {
 export function removeAuthToken() {
   window.localStorage.removeItem('token');
 }
+
+export function parseUserFromToken() {
+  const token = getAuthToken();
+  return token ? JSON.parse(window.atob(token.split('.')[1])) : null;
+}

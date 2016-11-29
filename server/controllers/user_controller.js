@@ -28,7 +28,6 @@ module.exports = {
           } else {
             var token = jwt.sign({
               _id: user._id,
-              user: user,
               email: user.email,
               role: user.role,
               name: user.name,

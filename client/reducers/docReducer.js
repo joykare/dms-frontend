@@ -15,6 +15,10 @@ export const INITIAL_DOC_STATE = Map({
     isShowingDialog: false,
     confirmDelete: false
   }),
+  snackBarState: Map({
+    open: false,
+    message: ''
+  }),
   docFilter: 'all',
   error: null
 });
@@ -26,6 +30,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: true,
         document: INITIAL_DOC_STATE.getIn(['document']),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -35,6 +40,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
         isFetching: false,
         docList: fromJS(action.doc),
         document: INITIAL_DOC_STATE.getIn(['document']),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -48,6 +54,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isShowingDialog: true,
           confirmDelete: false
         }),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -56,6 +63,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         document: INITIAL_DOC_STATE.getIn(['document']),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -69,6 +77,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isShowingDialog: true,
           confirmDelete: false
         }),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -81,8 +90,8 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isShowingDialog: false,
           isUpdatingDoc: false,
           confirmDelete: true,
-
         }),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -96,6 +105,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isUpdatingDoc: true,
           confirmDelete: false
         }),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -104,6 +114,10 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         document: INITIAL_DOC_STATE.getIn(['document']),
+        snackBarState: Map({
+          open: true,
+          message: 'Document has been successfully edited'
+        }),
         error: null
       }))
     );
@@ -118,6 +132,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
           confirmDelete: false
 
         }),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -126,6 +141,10 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         document: INITIAL_DOC_STATE.getIn(['document']),
+        snackBarState: Map({
+          open: true,
+          message: 'Document has been successfully deleted'
+        }),
         error: null
       }))
     );
@@ -139,6 +158,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
           isShowingDialog: true,
           confirmDelete: false
         }),
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -146,8 +166,12 @@ export default function(state = INITIAL_DOC_STATE, action) {
     return (
       state.merge(Map({
         isFetching: false,
-        docList: state.get('docList').push(fromJS(action.doc)),
+        docList: state.get('docList').unshift(fromJS(action.doc)),
         document: INITIAL_DOC_STATE.getIn(['document']),
+        snackBarState: Map({
+          open: true,
+          message: 'Document has been successfully created'
+        }),
         error: null
       }))
     );
@@ -156,6 +180,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         docFilter: action.filter,
+        snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -167,6 +192,10 @@ export default function(state = INITIAL_DOC_STATE, action) {
       state.merge(Map({
         isFetching: false,
         document: INITIAL_DOC_STATE.getIn(['document']),
+        snackBarState: Map({
+          open: true,
+          message: 'Error occured. Please try again'
+        }),
         error: fromJS(action.error)
       }))
     );

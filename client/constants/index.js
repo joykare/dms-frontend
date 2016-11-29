@@ -54,3 +54,8 @@ export const TOGGLE_UPDATE_DOC = 'TOGGLE_UPDATE_DOC';
 export const TOGGLE_DELETE_DOC = 'TOGGLE_DELETE_DOC';
 export const TOGGLE_CLOSE = 'TOGGLE_CLOSE';
 export const SET_DOC_FILTER = 'SET_DOC_FILTER';
+
+// Role details
+export const ROLE_GET_REQUEST = 'ROLE_GET_REQUEST';
+export const ROLE_GET_SUCCESS = 'ROLE_GET_SUCCESS';
+export const ROLE_GET_FAILURE = 'ROLE_GET_FAILURE';

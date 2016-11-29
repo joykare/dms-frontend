@@ -2,6 +2,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as userActions from '../../actions/userActions';
 import * as authActions from '../../actions/authActions';
+import * as roleActions from '../../actions/roleActions';
 import React, {PropTypes} from 'react';
 import NavBar from '../../components/Appbar/AppBar';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -18,7 +19,9 @@ class UserContainer extends React.Component {
     this.handleLogOut = this.handleLogOut.bind(this);
   }
   componentDidMount() {
-    this.props.userActions.fetchAllUsers();
+    this.props.userActions.fetchAllUsers().then(() => {
+      this.props.roleActions.fetchRoles();
+    });
   }
 
   handleLogOut() {
@@ -45,6 +48,7 @@ class UserContainer extends React.Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.props.auth, null, 2))
     return (
       this.props.users.isFetching ?
         <CircularProgress size={60} thickness={5} /> :
@@ -64,8 +68,8 @@ UserContainer.propTypes = {
   userActions: PropTypes.object.isRequired,
   users: PropTypes.object,
   auth: PropTypes.object,
-  authActions: PropTypes.object
-
+  authActions: PropTypes.object,
+  roleActions: PropTypes.object
 };
 
 UserContainer.contextTypes = {
@@ -82,7 +86,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     userActions: bindActionCreators(userActions, dispatch),
-    authActions: bindActionCreators(authActions, dispatch)
+    authActions: bindActionCreators(authActions, dispatch),
+    roleActions: bindActionCreators(roleActions, dispatch)
   };
 }
 

@@ -1,5 +1,6 @@
 import {Map, fromJS} from 'immutable';
 import * as actionTypes from '../constants';
+import * as utils from '../utils/tokenUtility';
 
 export const INITIAL_STATE = Map({
   isAuthenticated: false,
@@ -11,7 +12,9 @@ export const INITIAL_STATE = Map({
     confirmPassword: '',
     role: 'user'
   }),
-  user: null,
+  user: Map({
+    user: fromJS(utils.parseUserFromToken())
+  }),
   error: null,
   validations: Map({
     isValid: false,

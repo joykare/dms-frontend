@@ -4,6 +4,7 @@ import ConfirmDelete from '../../components/Documents/ConfirmDelete';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as documentActions from '../../actions/documentActions';
+import Snackbar from 'material-ui/Snackbar';
 
 class CreateDocumentContainer extends React.Component {
   constructor(props) {
@@ -45,14 +46,20 @@ class CreateDocumentContainer extends React.Component {
 
   handleDelete() {
     let documentDetails = this.props.documents.get('document').toJS();
-    this.props.documentActions.deleteDoc(documentDetails.docContent);
+    this.props.documentActions.deleteDoc(documentDetails.docContent)
+      .then(() => {
+        this.props.documentActions.fetchDoc();
+      });
 
   }
 
   handleSubmit() {
     let documentDetails = this.props.documents.get('document').toJS();
     if(documentDetails.isUpdatingDoc) {
-      this.props.documentActions.editDoc(documentDetails.docContent);
+      this.props.documentActions.editDoc(documentDetails.docContent)
+        .then(() => {
+          this.props.documentActions.fetchDoc();
+        });
     } else {
       this.props.documentActions.createDoc(documentDetails.docContent);
     }
@@ -76,6 +83,9 @@ class CreateDocumentContainer extends React.Component {
         <ConfirmDelete document={this.props.documents.get('document').toJS()}
                         onDelete={this.handleDelete}
                         onClose={this.handleClose} />
+        <Snackbar open={this.props.documents.getIn(['snackBarState', 'open'])}
+                  message={this.props.documents.getIn(['snackBarState', 'message'])}
+                  autoHideDuration={4000}/>
       </div>
     );
   }

@@ -8,6 +8,8 @@ import DocumentContainer from '../../containers/Documents/DocumentContainer';
 import CreateDocumentContainer from '../../containers/Documents/CreateDocumentContainer';
 import AppBar from 'material-ui/AppBar';
 import CreateIcon from 'material-ui/svg-icons/content/create';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 const ProfilePage = (props) => {
   return(
@@ -75,12 +77,16 @@ const ProfilePage = (props) => {
                   onChange={props.onChange}
                   /><br/>
                 {props.auth.role.title === 'admin' ?
-                  <TextField
-                    hintText="Role"
-                    floatingLabelText="Role"
+                  <SelectField
+                    floatingLabelText='Role'
                     name='role'
                     onChange={props.onChange}
-                  /> : <span></span>}
+                    value={'user'}
+                  >
+                    {props.roles.map((role) => (
+                      <MenuItem value={role._id} primaryText={role.title} />
+                    ))}
+                 </SelectField> : <span></span>}
               </CardText>
               <CardActions>
                 <FlatButton label='Submit' onClick={() => props.onSubmit(props.user)} primary={true}/>
@@ -101,6 +107,7 @@ const ProfilePage = (props) => {
 ProfilePage.propTypes = {
   userStateInfo: PropTypes.object,
   documents: PropTypes.array,
+  roles: PropTypes.array,
   user: PropTypes.object,
   auth: PropTypes.object,
   editUserToggle: PropTypes.func,
