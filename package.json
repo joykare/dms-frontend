@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "build": "webpack --config webpack.config.prod.js",
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "test": "export NODE_ENV=testing; node seed/dropdb.js && node seed/index.js; istanbul cover _mocha -- --compilers js:babel-core/register --require ./tests/testHelper.js 'tests/**/*@(.js|.jsx)'",
