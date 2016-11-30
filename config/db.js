@@ -8,6 +8,8 @@ if (process.env.NODE_ENV == 'development') {
   DB_URI = config.dev_database;
 } else if (process.env.NODE_ENV == 'testing') {
   DB_URI = config.test_database;
+} else {
+  DB_URI = config.prod_database;
 }
 
 mongoose.Promise = global.Promise;
