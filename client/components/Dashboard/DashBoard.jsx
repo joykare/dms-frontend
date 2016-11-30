@@ -1,9 +1,6 @@
 import React from 'react';
 
 import MenuContainer from '../../containers/Documents/MenuContainer';
-// import AppBar from '../Appbar/AppBar';
-// import ToolBar from '../Appbar/ToolBar';
-// import UserList from '../User/UserList';
 import DocumentsContainer from '../../containers/Documents/DocumentContainer';
 import CreateDocumentContainer from '../../containers/Documents/CreateDocumentContainer';
 import UserContainer from '../../containers/User/UserContainer';
@@ -14,17 +11,19 @@ const DashBoard = () => {
       <div>
         <UserContainer />
       </div>
-      <div style={{paddingRight: 200, float: 'right'}}>
-      <MenuContainer />
-      </div>
-      <div style={{paddingTop:70}}>
-        <DocumentsContainer />
+
+      <div className= 'col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1' style={{paddingTop:10}}>
+        <div style={{float: 'right'}}>
+          <MenuContainer />
+        </div>
+        <div style={{paddingTop:40}}>
+          <DocumentsContainer />
+        </div>
       </div>
 
         <CreateDocumentContainer />
     </div>
   );
-
 };
 
 export default DashBoard;

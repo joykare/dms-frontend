@@ -4,10 +4,10 @@ import Document from './Document';
 const DocumentList = (props) => {
   return (
     <div>
-      <div className='col-xs-12'>
+      <div>
       {props.documents && props.documents.length
       ? props.documents.map((doc) => (
-        <div style={{paddingTop: 30, paddingLeft:200, paddingRight:200}} key={doc._id}>
+        <div style={{paddingTop: 30}} key={doc._id}>
           <Document document={doc}
                     auth={props.auth}
                     onUpdate={props.onUpdate}
