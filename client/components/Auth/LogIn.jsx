@@ -10,9 +10,10 @@ const LogIn = (props) => {
       <div>
 
         <TextField
-          name="email"
-          hintText="Email"
-          floatingLabelText="Email"
+          className='email'
+          name='email'
+          hintText='Email'
+          floatingLabelText='Email'
           onChange={props.onChange}
           onBlur={props.onBlur}
         /><br/>
@@ -20,9 +21,10 @@ const LogIn = (props) => {
       </div>
       <div>
         <TextField
+          className='password'
           name='password'
-          hintText="Password"
-          floatingLabelText="Password"
+          hintText='Password'
+          floatingLabelText='Password'
           type='password'
           onChange={props.onChange}
           onBlur={props.onBlur}
@@ -31,7 +33,7 @@ const LogIn = (props) => {
       </div>
       <br/><br/>
       <div>
-        <RaisedButton disabled={!props.auth.validations.isValid} label="Login" primary={true} onClick={props.onLogin}/>
+        <RaisedButton className='loginButton' disabled={!props.auth.validations.isValid} label='Login' primary={true} onClick={props.onLogin}/>
       </div>
     </form>
   );
@@ -51,7 +53,6 @@ LogIn.propTypes = {
   onLogin: PropTypes.func,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
-  reset: PropTypes.func
 };
 
 export default LogIn;
