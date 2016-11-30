@@ -31,7 +31,6 @@ const LandingPage = () => {
           <AuthWrapperContainer />
         </Paper>
       </div>
-
     </div>
   );
 };

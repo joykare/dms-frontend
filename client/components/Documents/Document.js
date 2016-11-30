@@ -12,6 +12,7 @@ const Document = (props) => {
   return (
     <Card>
      <CardHeader
+      className='card-header'
       textStyle={{paddingLeft:10, verticalAlign:'middle'}}
       title= {props.document.ownerName}
       subtitle= {props.document.roleTitle}
@@ -33,9 +34,9 @@ const Document = (props) => {
      <CardTitle title={props.document.title} />
      <Chip style={{margin:10}}>
          {props.document.accessLevel}
-       </Chip>
+      </Chip>
 
-     <CardText>
+     <CardText className='card-text'>
        {props.document.content}
      </CardText>
    </Card>

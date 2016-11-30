@@ -9,8 +9,9 @@ const SignUp = (props) => {
       <div>
           {!!props.auth.error && <p className='isa_error' style={{color: '#D8000C', backgroundColor: '#FFBABA', padding: 12, margin: 10}}> {props.auth.error.message} </p>}
         <TextField
-          hintText = "Username"
-          floatingLabelText="Username"
+          className='username'
+          hintText='Username'
+          floatingLabelText='Username'
           name='username'
           onBlur={props.onBlur}
           onChange={props.onChange}
@@ -19,8 +20,9 @@ const SignUp = (props) => {
       </div>
       <div>
         <TextField
-          hintText="Email"
-          floatingLabelText="Email"
+          className='email'
+          hintText='Email'
+          floatingLabelText='Email'
           name='email'
           onBlur={props.onBlur}
           onChange={props.onChange}
@@ -29,8 +31,9 @@ const SignUp = (props) => {
       </div>
       <div>
         <TextField
-          hintText="Password"
-          floatingLabelText="Password"
+          className='password'
+          hintText='Password'
+          floatingLabelText='Password'
           name='password'
           type='password'
           onBlur={props.onBlur}
@@ -40,8 +43,9 @@ const SignUp = (props) => {
       </div>
       <div>
         <TextField
-          hintText="Confirm Password"
-          floatingLabelText="Confirm Password"
+          className='confirmPassword'
+          hintText='Confirm Password'
+          floatingLabelText='Confirm Password'
           name='confirmPassword'
           type='password'
           onBlur={props.onBlur}
@@ -51,7 +55,7 @@ const SignUp = (props) => {
       </div>
       <br/>
       <div>
-        <RaisedButton disabled={!props.auth.validations.isValid} label="Signup" primary={true} onClick={props.onSignup}/>
+        <RaisedButton className='signupButton' disabled={!props.auth.validations.isValid} label='Signup' primary={true} onClick={props.onSignup}/>
       </div>
     </form>
   );
@@ -71,8 +75,6 @@ SignUp.propTypes = {
   onSignup: PropTypes.func,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
-  reset: PropTypes.func,
-  validate: PropTypes.func
 };
 
 export default SignUp;

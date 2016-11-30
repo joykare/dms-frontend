@@ -36,6 +36,7 @@ const CreateDocument = (props) => {
         onRequestClose={props.onClose}
       >
         <TextField
+          classname='title'
           name='title'
           hintText='Title'
           floatingLabelText='Title'
@@ -43,6 +44,7 @@ const CreateDocument = (props) => {
           onChange={props.onChange}
         /><br />
         <TextField
+          classname='content'
           name='content'
           hintText='Content'
           floatingLabelText='Content'

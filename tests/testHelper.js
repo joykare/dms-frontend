@@ -2,6 +2,8 @@ import jsdom from 'jsdom';
 import chai from 'chai';
 import chaiImmutable from 'chai-immutable';
 
+require('babel-register')();
+
 // set-up jsdom
 // create jsdom versions of windows and documents
 const doc = jsdom.jsdom('<!doctype html><html><body></body></html>');
