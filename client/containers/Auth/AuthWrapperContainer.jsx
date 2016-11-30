@@ -70,18 +70,19 @@ class AuthWrapperContainer extends React.Component {
   render() {
     return (
       <Tabs>
-        <Tab label='Sign Up' value='signup'>
-          <SignUp auth={this.props.auth.toJS()}
-                  onChange={this.handleChange}
-                  onBlur={this.handleSignupValidate}
-                  onSignup={this.handleSignup} />
-        </Tab>
         <Tab label='Log In' value='login'>
           <LogIn auth={this.props.auth.toJS()}
                   onChange={this.handleChange}
                   onBlur={this.handleLoginValidate}
                   onLogin={this.handleLogin} />
         </Tab>
+
+        <Tab label='Sign Up' value='signup'>
+          <SignUp auth={this.props.auth.toJS()}
+                  onChange={this.handleChange}
+                  onBlur={this.handleSignupValidate}
+                  onSignup={this.handleSignup} />
+        </Tab>  
       </Tabs>
     );
   }

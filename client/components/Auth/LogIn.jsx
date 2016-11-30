@@ -8,7 +8,6 @@ const LogIn = (props) => {
     <form style={{textAlign:'center', marginTop:80}}>
       {!!props.auth.error && <p className='isa_error' style={{color: '#D8000C', backgroundColor: '#FFBABA', padding: 12, margin: 10}}> {props.auth.error.message} </p>}
       <div>
-
         <TextField
           className='email'
           name='email'
