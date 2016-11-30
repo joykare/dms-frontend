@@ -65,13 +65,13 @@ const ProfilePage = (props) => {
                   onBlur={props.onBlur}
                   defaultValue={props.user.email}
                   /><br/>
+                  {!!props.errors.errors.email && <ValidationError error={props.errors.errors.email}/>}
                 <TextField
                   hintText="Password"
                   floatingLabelText="Password"
                   name='password'
                   type='password'
                   onChange={props.onChange}
-                  onBlur={props.onBlur}
                   /><br/>
                 <TextField
                   hintText="Confirm Password"
@@ -81,6 +81,7 @@ const ProfilePage = (props) => {
                   onChange={props.onChange}
                   onBlur={props.onBlur}
                   /><br/>
+                  {!!props.errors.errors.confirmPassword && <ValidationError error={props.errors.errors.confirmPassword}/>}
                 {props.auth.role.title === 'admin' ?
                   <SelectField
                     floatingLabelText='Role'
@@ -111,6 +112,7 @@ const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   userStateInfo: PropTypes.object,
+  errors: PropTypes.object,
   onRoleChange: PropTypes.func,
   documents: PropTypes.array,
   roles: PropTypes.array,

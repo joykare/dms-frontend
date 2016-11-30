@@ -4,13 +4,16 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as userActions from '../../actions/userActions';
 import * as authActions from '../../actions/authActions';
-import * as validate from '../../utils/fieldValidation';
-import isEmpty from 'lodash/isEmpty';
+import Validator from 'validator';
+import Snackbar from 'material-ui/Snackbar';
 
 class ProfilePageContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      errors: {}
+    };
     this.handleEditToggle= this.handleEditToggle.bind(this);
     this.handleSubmit= this.handleSubmit.bind(this);
     this.handleChange= this.handleChange.bind(this);
@@ -55,9 +58,8 @@ class ProfilePageContainer extends React.Component {
   }
 
   handleLogOut() {
-    this.props.authActions.logoutUser().then(() => {
-      this.context.router.push('/');
-    });
+    this.props.authActions.logoutUser();
+    this.context.router.push('/');
   }
 
   handleClose() {
@@ -84,31 +86,39 @@ class ProfilePageContainer extends React.Component {
   }
 
   handleValidate() {
-  // const { errors, isValid  } = validate.validateFormData(this.props.users.get('userDetails'););
-  // if (!isValid) {
-  //   this.setState({ errors  });
-  // }
-  // return isValid;
+    const user = this.props.users.get('userDetails').toJS();
 
+    if (!Validator.isEmail(user.email)) {
+      Object.assign({}, this.state, this.setState({errors: {email : 'Email is invalid'}}));
+    }
 
+    if (user.confirmPassword !== user.password) {
+      Object.assign({}, this.state, this.setState({errors: {confirmPassword : 'Doesn\'t match password'}}));
+    }
   }
 
   render() {
     return (
-      <ProfilePage documents={this.props.users.get('documents').toJS()}
-                    auth={this.props.auth.getIn(['user', 'user']).toJS()}
-                    userStateInfo={this.props.users.toJS()}
-                    onClose={this.handleClose}
-                    onBlur={this.handleValidate}
-                    onChange={this.handleChange}
-                    onLogOut={this.handleLogOut}
-                    onRoleChange={this.handleRole}
-                    onSubmit={this.handleSubmit}
-                    canEdit={this.handleShowEdit}
-                    onTitleTouchTap={this.handleTitleTouch}
-                    user={this.props.users.get('userDetails').toJS()}
-                    roles={this.props.roles.get('roles').toJS()}
-                    editUserToggle={this.handleEditToggle}/>
+      <div>
+        <ProfilePage documents={this.props.users.get('documents').toJS()}
+                      auth={this.props.auth.getIn(['user', 'user']).toJS()}
+                      userStateInfo={this.props.users.toJS()}
+                      onClose={this.handleClose}
+                      errors={this.state}
+                      onBlur={this.handleValidate}
+                      onChange={this.handleChange}
+                      onLogOut={this.handleLogOut}
+                      onRoleChange={this.handleRole}
+                      onSubmit={this.handleSubmit}
+                      canEdit={this.handleShowEdit}
+                      onTitleTouchTap={this.handleTitleTouch}
+                      user={this.props.users.get('userDetails').toJS()}
+                      roles={this.props.roles.get('roles').toJS()}
+                      editUserToggle={this.handleEditToggle}/>
+        <Snackbar open={this.props.users.getIn(['snackBarState', 'open'])}
+                  message={this.props.users.getIn(['snackBarState', 'message'])}
+                  autoHideDuration={4000}/>
+      </div>
     );
   }
 }
