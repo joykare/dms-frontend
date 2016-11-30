@@ -26,7 +26,10 @@ const Document = (props) => {
          targetOrigin={{horizontal: 'right', vertical: 'top'}}
          >
          <MenuItem primaryText="Edit Document" onTouchTap={() => props.onUpdate(props.document)}/>
-         <MenuItem primaryText="Delete Document" onTouchTap={() => props.onDelete(props.document)}/>
+         {props.document.ownerId === props.auth.user._id ?
+           <MenuItem primaryText="Delete Document" onTouchTap={() => props.onDelete(props.document)}/> :
+           <span></span>
+         }
        </IconMenu> : <span></span>
       }
 
@@ -55,6 +58,7 @@ Document.propTypes = {
     roleTitle: PropTypes.string,
     accessLevel: PropTypes.string
   }),
+  auth: PropTypes.object,
   showEditMenu: PropTypes.bool,
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func

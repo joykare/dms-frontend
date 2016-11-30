@@ -20,6 +20,11 @@ describe('Document Card Test', () => {
       roleTitle: 'user',
       accessLevel: 'public'
     },
+    auth: {
+      user: {
+        _id: '78'
+      }
+    },
     showEditMenu: true,
     onUpdate: () => Promise.resolve(),
     onDelete: () => Promise.resolve()
