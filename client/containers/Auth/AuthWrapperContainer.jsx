@@ -55,8 +55,6 @@ class AuthWrapperContainer extends React.Component {
         }
       }
     );
-
-
   }
 
   handleSignup() {
@@ -88,6 +86,7 @@ class AuthWrapperContainer extends React.Component {
     );
   }
 }
+
 AuthWrapperContainer.propTypes = {
   auth: PropTypes.object,
   authActions: PropTypes.object
