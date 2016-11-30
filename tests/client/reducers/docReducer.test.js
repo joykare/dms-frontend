@@ -16,6 +16,7 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: true,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -33,6 +34,7 @@ describe('docReducer spec', () => {
       isFetching: false,
       docList: fromJS(action.doc),
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -48,6 +50,10 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: Map({
+        open: true,
+        message: 'Error occured. Please try again'
+      }),
       error: fromJS(action.error)
     }));
   });
@@ -69,6 +75,7 @@ describe('docReducer spec', () => {
         isShowingDialog: true,
         confirmDelete: false
       }),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -90,13 +97,12 @@ describe('docReducer spec', () => {
 
     expect(docReducer(state, action)).to.eql(Map({
       isFetching: false,
-      docList: fromJS([{
-        title: 'What'
-      }, {
-        title: 'Test',
-        content: 'test'
-      }]),
+      docList: state.get('docList').unshift(fromJS(action.doc)),
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: Map({
+        open: true,
+        message: 'Document has been successfully created'
+      }),
       error: null
     }));
   });
@@ -112,6 +118,10 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: Map({
+        open: true,
+        message: 'Error occured. Please try again'
+      }),
       error: fromJS(action.error)
     }));
   });
@@ -133,6 +143,7 @@ describe('docReducer spec', () => {
         isUpdatingDoc: true,
         confirmDelete: false
       }),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -149,6 +160,10 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: Map({
+        open: true,
+        message: 'Document has been successfully edited'
+      }),
       error: null
     }));
   });
@@ -164,6 +179,10 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: Map({
+        open: true,
+        message: 'Error occured. Please try again'
+      }),
       error: fromJS(action.error)
     }));
   });
@@ -185,6 +204,7 @@ describe('docReducer spec', () => {
         isUpdatingDoc: false,
         confirmDelete: false
       }),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -201,6 +221,10 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: Map({
+        open: true,
+        message: 'Document has been successfully deleted'
+      }),
       error: null
     }));
   });
@@ -216,6 +240,10 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: Map({
+        open: true,
+        message: 'Error occured. Please try again'
+      }),
       error: fromJS(action.error)
     }));
   });
@@ -233,6 +261,7 @@ describe('docReducer spec', () => {
         isShowingDialog: true,
         confirmDelete: false
       }),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -262,6 +291,7 @@ describe('docReducer spec', () => {
         isShowingDialog: true,
         confirmDelete: false
       }),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -291,6 +321,7 @@ describe('docReducer spec', () => {
         isUpdatingDoc: false,
         confirmDelete: true
       }),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
@@ -303,6 +334,7 @@ describe('docReducer spec', () => {
     expect(docReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       document: INITIAL_DOC_STATE.getIn(['document']),
+      snackBarState: INITIAL_DOC_STATE.getIn(['snackBarState']),
       error: null
     }));
   });
