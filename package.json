@@ -40,6 +40,7 @@
     "mocha": "^3.0.2",
     "mongoose": "^4.5.8",
     "mongoose-paginate": "^5.0.0",
+    "react": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-mdl": "^1.7.2",
