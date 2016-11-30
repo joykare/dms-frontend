@@ -46,3 +46,16 @@ export function validateSignUp(data) {
   }
   return errors;
 }
+
+export function validateFormData(data) {
+  let errors = {};
+
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'Email is invalid';
+  }
+
+  if (data.confirmPassword !== data.password) {
+    errors.confirmPassword = 'Doesn\'t match password';
+  }
+  return errors;
+}

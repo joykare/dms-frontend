@@ -8,6 +8,9 @@ import DocumentContainer from '../../containers/Documents/DocumentContainer';
 import CreateDocumentContainer from '../../containers/Documents/CreateDocumentContainer';
 import AppBar from 'material-ui/AppBar';
 import CreateIcon from 'material-ui/svg-icons/content/create';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import ValidationError from '../Auth/Validation';
 
 const ProfilePage = (props) => {
   return(
@@ -51,6 +54,7 @@ const ProfilePage = (props) => {
                   floatingLabelText="Username"
                   name='username'
                   onChange={props.onChange}
+                  onBlur={props.onBlur}
                   defaultValue={props.user.username}
                   /><br/>
                 <TextField
@@ -58,8 +62,10 @@ const ProfilePage = (props) => {
                   floatingLabelText="Email"
                   name='email'
                   onChange={props.onChange}
+                  onBlur={props.onBlur}
                   defaultValue={props.user.email}
                   /><br/>
+                  {!!props.errors.errors.email && <ValidationError error={props.errors.errors.email}/>}
                 <TextField
                   hintText="Password"
                   floatingLabelText="Password"
@@ -73,14 +79,20 @@ const ProfilePage = (props) => {
                   name='confirmPassword'
                   type='password'
                   onChange={props.onChange}
+                  onBlur={props.onBlur}
                   /><br/>
+                  {!!props.errors.errors.confirmPassword && <ValidationError error={props.errors.errors.confirmPassword}/>}
                 {props.auth.role.title === 'admin' ?
-                  <TextField
-                    hintText="Role"
-                    floatingLabelText="Role"
+                  <SelectField
+                    floatingLabelText='Role'
                     name='role'
-                    onChange={props.onChange}
-                  /> : <span></span>}
+                    onChange={props.onRoleChange}
+                    value={props.user.role || 'user'}
+                  >
+                    {props.roles.map((role) => (
+                      <MenuItem value={role._id} primaryText={role.title} />
+                    ))}
+                 </SelectField> : <span></span>}
               </CardText>
               <CardActions>
                 <FlatButton label='Submit' onClick={() => props.onSubmit(props.user)} primary={true}/>
@@ -100,12 +112,16 @@ const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   userStateInfo: PropTypes.object,
+  errors: PropTypes.object,
+  onRoleChange: PropTypes.func,
   documents: PropTypes.array,
+  roles: PropTypes.array,
   user: PropTypes.object,
   auth: PropTypes.object,
   editUserToggle: PropTypes.func,
   onTitleTouchTap: PropTypes.func,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   onLogOut: PropTypes.func,
   onSubmit: PropTypes.func,
   onClose: PropTypes.func,

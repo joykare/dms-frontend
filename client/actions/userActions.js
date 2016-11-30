@@ -98,6 +98,22 @@ export function fetchAllUsers() {
   };
 }
 
+export function fetchUser(userId) {
+  return dispatch => {
+    dispatch(userDetailsRequest());
+    return (
+      request
+        .get(`/api/users/${userId}`)
+        .set('x-access-token', tokenUtils.getAuthToken())
+        .then(response => {
+          dispatch(userDetailsSuccess(response.body));
+        }).catch(err => {
+          dispatch(userDetailsFailure(err));
+        })
+    );
+  };
+}
+
 export function editUser(user) {
   return dispatch => {
     dispatch(userDetailsRequest());

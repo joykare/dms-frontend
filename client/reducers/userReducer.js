@@ -12,6 +12,10 @@ export const INITIAL_USER_STATE = Map({
     confirmPassword: '',
     role: ''
   }),
+  snackBarState: Map({
+    open: false,
+    message: ''
+  }),
   documents: List(),
   isEditing: false,
   error: null
@@ -24,6 +28,7 @@ export default function(state = INITIAL_USER_STATE, action) {
       state.merge(Map({
         isFetching: true,
         userDetails: INITIAL_USER_STATE.getIn(['userDetails']),
+        snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
         isEditing: false,
         error: null
       }))
@@ -34,6 +39,7 @@ export default function(state = INITIAL_USER_STATE, action) {
         isFetching: false,
         userDetails: INITIAL_USER_STATE.getIn(['userDetails']),
         users: fromJS(action.users),
+        snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
         isEditing: false,
         error: null
       }))
@@ -43,6 +49,7 @@ export default function(state = INITIAL_USER_STATE, action) {
       state.merge(Map({
         isFetching: true,
         isEditing: true,
+        snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
         userDetails: fromJS(action.updates),
         error: null
       }))
@@ -50,13 +57,15 @@ export default function(state = INITIAL_USER_STATE, action) {
   case actionTypes.USER_CLOSE_TOGGLE:
     return (
       state.merge(Map({
-        isEditing: false
+        isEditing: false,
+        snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
       }))
     );
   case actionTypes.USER_EDIT_TOGGLE:
     return (
       state.merge(Map({
-        isEditing: true
+        isEditing: true,
+        snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
       }))
     );
   case actionTypes.USER_DOC_REQUEST:
@@ -64,6 +73,7 @@ export default function(state = INITIAL_USER_STATE, action) {
       state.merge(Map({
         isFetching: true,
         userDetails: fromJS(action.user),
+        snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
         isEditing: false,
         error: null
       }))
@@ -73,6 +83,10 @@ export default function(state = INITIAL_USER_STATE, action) {
       state.merge(Map({
         isFetching: false,
         documents: fromJS(action.documents),
+        snackBarState: Map({
+          open: true,
+          message: 'Documents have been successfully loaded'
+        }),
         isEditing: false,
         error: null
       }))
@@ -82,6 +96,7 @@ export default function(state = INITIAL_USER_STATE, action) {
       state.merge(Map({
         isFetching: true,
         isEditing: true,
+        snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
         error: null
       }))
     );
@@ -90,6 +105,10 @@ export default function(state = INITIAL_USER_STATE, action) {
       state.merge(Map({
         isFetching: false,
         userDetails: fromJS(action.user),
+        snackBarState: Map({
+          open: true,
+          message: 'User has been successfully loaded'
+        }),
         isEditing: false,
         error: null
       }))
@@ -100,6 +119,10 @@ export default function(state = INITIAL_USER_STATE, action) {
     return (
       state.merge(Map({
         isFetching: false,
+        snackBarState: Map({
+          open: true,
+          message: 'Error occured. Please retry'
+        }),
         error: fromJS(action.error)
       }))
     );

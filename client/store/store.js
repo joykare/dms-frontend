@@ -5,9 +5,10 @@ import thunk from 'redux-thunk';
 
 // const logger = createLogger();
 
-const configureStore = () => {
+const configureStore = (initialState) => {
   return createStore(
     rootReducer,
+    initialState,
     compose(
       applyMiddleware(
         thunk

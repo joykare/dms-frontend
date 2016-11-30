@@ -9,7 +9,6 @@ import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import InfoIcon from 'material-ui/svg-icons/action/info';
-import PersonIcon from 'material-ui/svg-icons/action/account-box';
 
 const NavBar = (props) => {
   const upperCaseFirst = (name) => {
@@ -55,11 +54,6 @@ const NavBar = (props) => {
           <br/>
         </div>
         <Divider/>
-        <ListItem
-          primaryText='My Profile'
-          onTouchTap={() => props.onSelectUser(props.auth)}
-          leftIcon={<PersonIcon />}
-        />
         <List>
           <Subheader>View users:</Subheader>
           {props.users && props.users.length ?

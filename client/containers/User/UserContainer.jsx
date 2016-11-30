@@ -2,6 +2,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as userActions from '../../actions/userActions';
 import * as authActions from '../../actions/authActions';
+import * as roleActions from '../../actions/roleActions';
 import React, {PropTypes} from 'react';
 import NavBar from '../../components/Appbar/AppBar';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -18,7 +19,9 @@ class UserContainer extends React.Component {
     this.handleLogOut = this.handleLogOut.bind(this);
   }
   componentDidMount() {
-    this.props.userActions.fetchAllUsers();
+    this.props.userActions.fetchAllUsers().then(() => {
+      this.props.roleActions.fetchRoles();
+    });
   }
 
   handleLogOut() {
@@ -33,9 +36,9 @@ class UserContainer extends React.Component {
   }
 
   handleSelect(user) {
-    this.props.userActions.fetchUserDocuments(user).then(() =>
-      this.context.router.push('/profile')
-    );
+    this.props.userActions.fetchUserDocuments(user).then(() =>{
+      this.context.router.push(`/profile/${user._id}`);
+    });
   }
 
   handleOpen() {
@@ -64,8 +67,8 @@ UserContainer.propTypes = {
   userActions: PropTypes.object.isRequired,
   users: PropTypes.object,
   auth: PropTypes.object,
-  authActions: PropTypes.object
-
+  authActions: PropTypes.object,
+  roleActions: PropTypes.object
 };
 
 UserContainer.contextTypes = {
@@ -82,7 +85,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     userActions: bindActionCreators(userActions, dispatch),
-    authActions: bindActionCreators(authActions, dispatch)
+    authActions: bindActionCreators(authActions, dispatch),
+    roleActions: bindActionCreators(roleActions, dispatch)
   };
 }
 

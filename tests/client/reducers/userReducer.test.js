@@ -16,6 +16,7 @@ describe('userReducer spec', () => {
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: true,
       userDetails: INITIAL_USER_STATE.getIn(['userDetails']),
+      snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
       isEditing: false,
       error: null
     }));
@@ -37,6 +38,7 @@ describe('userReducer spec', () => {
       isFetching: false,
       userDetails: INITIAL_USER_STATE.getIn(['userDetails']),
       users: fromJS(action.users),
+      snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
       isEditing: false,
       error: null
     }));
@@ -52,6 +54,10 @@ describe('userReducer spec', () => {
 
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: false,
+      snackBarState: Map({
+        open: true,
+        message: 'Error occured. Please retry'
+      }),
       error: fromJS(action.error)
     }));
   });
@@ -63,6 +69,7 @@ describe('userReducer spec', () => {
 
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: true,
+      snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
       isEditing: true,
       error: null
     }));
@@ -80,6 +87,10 @@ describe('userReducer spec', () => {
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       userDetails: fromJS(action.user),
+      snackBarState: Map({
+        open: true,
+        message: 'User has been successfully loaded'
+      }),
       isEditing: false,
       error: null
     }));
@@ -95,6 +106,10 @@ describe('userReducer spec', () => {
 
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: false,
+      snackBarState: Map({
+        open: true,
+        message: 'Error occured. Please retry'
+      }),
       error: fromJS(action.error)
     }));
   });
@@ -111,6 +126,7 @@ describe('userReducer spec', () => {
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: true,
       userDetails: fromJS(action.user),
+      snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
       isEditing: false,
       error: null
     }));
@@ -128,6 +144,10 @@ describe('userReducer spec', () => {
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: false,
       documents: fromJS(action.documents),
+      snackBarState: Map({
+        open: true,
+        message: 'Documents have been successfully loaded'
+      }),
       isEditing: false,
       error: null
     }));
@@ -143,6 +163,10 @@ describe('userReducer spec', () => {
 
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: false,
+      snackBarState: Map({
+        open: true,
+        message: 'Error occured. Please retry'
+      }),
       error: fromJS(action.error)
     }));
   });
@@ -158,6 +182,7 @@ describe('userReducer spec', () => {
 
     expect(userReducer(Map(), action)).to.eql(Map({
       isFetching: true,
+      snackBarState: INITIAL_USER_STATE.getIn(['snackBarState']),
       isEditing: true,
       userDetails: fromJS(action.updates),
       error: null
@@ -170,7 +195,8 @@ describe('userReducer spec', () => {
     };
 
     expect(userReducer(Map(), action)).to.eql(Map({
-      isEditing: false
+      isEditing: false,
+      snackBarState: INITIAL_USER_STATE.getIn(['snackBarState'])
     }));
   });
 
@@ -180,7 +206,8 @@ describe('userReducer spec', () => {
     };
 
     expect(userReducer(Map(), action)).to.eql(Map({
-      isEditing: true
+      isEditing: true,
+      snackBarState: INITIAL_USER_STATE.getIn(['snackBarState'])
     }));
   });
 
