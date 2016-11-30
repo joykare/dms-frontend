@@ -9,6 +9,7 @@ const DocumentList = (props) => {
       ? props.documents.map((doc) => (
         <div style={{paddingTop: 30, paddingLeft:200, paddingRight:200}} key={doc._id}>
           <Document document={doc}
+                    auth={props.auth}
                     onUpdate={props.onUpdate}
                     onDelete={props.onDelete}
                     showEditMenu={props.showEditMenu(doc)}/>
@@ -21,6 +22,7 @@ const DocumentList = (props) => {
 
 DocumentList.propTypes = {
   userDetails: PropTypes.func,
+  auth: PropTypes.object,
   documents: PropTypes.array.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
