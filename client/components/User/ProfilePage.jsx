@@ -10,6 +10,7 @@ import AppBar from 'material-ui/AppBar';
 import CreateIcon from 'material-ui/svg-icons/content/create';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import ValidationError from '../Auth/Validation';
 
 const ProfilePage = (props) => {
   return(
@@ -53,6 +54,7 @@ const ProfilePage = (props) => {
                   floatingLabelText="Username"
                   name='username'
                   onChange={props.onChange}
+                  onBlur={props.onBlur}
                   defaultValue={props.user.username}
                   /><br/>
                 <TextField
@@ -60,6 +62,7 @@ const ProfilePage = (props) => {
                   floatingLabelText="Email"
                   name='email'
                   onChange={props.onChange}
+                  onBlur={props.onBlur}
                   defaultValue={props.user.email}
                   /><br/>
                 <TextField
@@ -68,6 +71,7 @@ const ProfilePage = (props) => {
                   name='password'
                   type='password'
                   onChange={props.onChange}
+                  onBlur={props.onBlur}
                   /><br/>
                 <TextField
                   hintText="Confirm Password"
@@ -75,6 +79,7 @@ const ProfilePage = (props) => {
                   name='confirmPassword'
                   type='password'
                   onChange={props.onChange}
+                  onBlur={props.onBlur}
                   /><br/>
                 {props.auth.role.title === 'admin' ?
                   <SelectField
@@ -114,6 +119,7 @@ ProfilePage.propTypes = {
   editUserToggle: PropTypes.func,
   onTitleTouchTap: PropTypes.func,
   onChange: PropTypes.func,
+  onBlur: PropTypes.func,
   onLogOut: PropTypes.func,
   onSubmit: PropTypes.func,
   onClose: PropTypes.func,

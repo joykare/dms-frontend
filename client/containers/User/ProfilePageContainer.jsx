@@ -4,6 +4,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as userActions from '../../actions/userActions';
 import * as authActions from '../../actions/authActions';
+import * as validate from '../../utils/fieldValidation';
+import isEmpty from 'lodash/isEmpty';
 
 class ProfilePageContainer extends React.Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class ProfilePageContainer extends React.Component {
     this.loadUserData = this.loadUserData.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.handleRole = this.handleRole.bind(this);
+    this.handleValidate = this.handleValidate.bind(this);
   }
 
   componentDidMount() {
@@ -62,7 +65,6 @@ class ProfilePageContainer extends React.Component {
   }
 
   handleSubmit(user) {
-    console.log(user);
     this.props.userActions.editUser(user);
   }
 
@@ -81,12 +83,23 @@ class ProfilePageContainer extends React.Component {
     this.props.userActions.userUpdateRequest(user.toJS());
   }
 
+  handleValidate() {
+  // const { errors, isValid  } = validate.validateFormData(this.props.users.get('userDetails'););
+  // if (!isValid) {
+  //   this.setState({ errors  });
+  // }
+  // return isValid;
+
+
+  }
+
   render() {
     return (
       <ProfilePage documents={this.props.users.get('documents').toJS()}
                     auth={this.props.auth.getIn(['user', 'user']).toJS()}
                     userStateInfo={this.props.users.toJS()}
                     onClose={this.handleClose}
+                    onBlur={this.handleValidate}
                     onChange={this.handleChange}
                     onLogOut={this.handleLogOut}
                     onRoleChange={this.handleRole}
