@@ -37,6 +37,7 @@
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "material-design-lite": "^1.2.1",
+    "material-ui": "^0.16.4",
     "mocha": "^3.0.2",
     "mongoose": "^4.5.8",
     "mongoose-paginate": "^5.0.0",
