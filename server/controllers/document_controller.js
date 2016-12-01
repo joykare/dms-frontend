@@ -9,8 +9,10 @@ module.exports = {
     };
 
     document.ownerId = req.decoded._id || req.body.ownerId;
-    document.ownerName = upperCaseFirst(req.decoded.name.first) + ' ' + upperCaseFirst(req.decoded.name.last),
-    document.ownerEmail = req.decoded.email,
+    if(req.decoded.name){
+      return document.ownerName = upperCaseFirst(req.decoded.name.first) + ' ' + upperCaseFirst(req.decoded.name.last);
+    }
+    document.ownerEmail = req.decoded.email;
     document.title = req.body.title;
     document.content = req.body.content;
     document.roleTitle = req.decoded.role.title;
