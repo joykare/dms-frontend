@@ -10,7 +10,7 @@ const style = {
   textAlign: 'center',
   display: 'inline-block',
   position: 'absolute',
-  top: '60%',
+  top: '50%',
   left: '50%',
   marginRight: '-50%',
   transform: 'translate(' + '-50%,' + '-50%' + ')'
@@ -23,9 +23,6 @@ const LandingPage = () => {
         showMenuIconButton={false}
         title='Doc~sy'
       />
-      <div className='jumbotron col-sm-12 text-center' style={{backgroundColor: 'transparent', marginTop: 70}}>
-        <h3>Document Management System</h3>
-      </div>
       <div>
         <Paper style={style} zDepth={3}>
           <AuthWrapperContainer />

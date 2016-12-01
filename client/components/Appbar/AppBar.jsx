@@ -42,11 +42,16 @@ const NavBar = (props) => {
             style={{padding: 12, marginTop: 20}} size={80} rating="pg"
             default="identicon" className="CustomAvatar-image" />
           <br/>
-          <p style={{margin: 12, fontSize: 14, fontWeight:500,
-            color: props.muiTheme.palette.alternateTextColor}}>
-              {upperCaseFirst(props.auth.name.first) + ' ' +
-              upperCaseFirst(props.auth.name.last)}
-          </p>
+          {props.auth.name ?
+            <p style={{margin: 12, fontSize: 14, fontWeight:500,
+              color: props.muiTheme.palette.alternateTextColor}}>
+                {upperCaseFirst(props.auth.name.first) + ' ' +
+                upperCaseFirst(props.auth.name.last)}
+            </p> : <p style={{margin: 12, fontSize: 14, fontWeight:500,
+              color: props.muiTheme.palette.alternateTextColor}}>
+                {props.auth.username}
+            </p>
+          }
           <p style={{margin: 12, fontSize: 14, fontWeight:500,
             color: props.muiTheme.palette.alternateTextColor}}>
               {props.auth.email}

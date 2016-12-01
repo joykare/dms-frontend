@@ -14,7 +14,7 @@ const Document = (props) => {
      <CardHeader
       className='card-header'
       textStyle={{paddingLeft:10, verticalAlign:'middle'}}
-      title= {props.document.ownerName}
+      title= {props.document.ownerName ? props.document.ownerName : props.document.ownerEmail}
       subtitle= {props.document.roleTitle}
      >
       <Gravatar email={md5(props.document.ownerEmail)} style={{float:'left'}} size={50} rating="pg" default="identicon" className="CustomAvatar-image" />

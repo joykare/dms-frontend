@@ -26,13 +26,13 @@ const ProfilePage = (props) => {
         }
         onTitleTouchTap={props.onTitleTouchTap}
       />
-      <div className='row' style={{padding: 20}}>
-        <div className='col-xs-2'>
+      <div className='row col-md-10 col-md-offset-1 col-sm-12' style={{padding: 20}}>
+        <div className='col-md-4 col-sm-4' >
           {!props.userStateInfo.isEditing ?
-            <Card style={{width: 350, marginLeft: 50, marginTop: 30}}>
+            <Card style={{maxWidth: 350, marginTop: 30}}>
               <CardMedia overlay={<CardTitle title={props.user.username} />}>
                 <Gravatar email={md5(props.user.email)} size={300} rating="pg"
-                  default="identicon" className="CustomAvatar-image" />
+                  default="identicon" className="CustomAvatar-image img-responsive" />
               </CardMedia>
               <CardText>
                 {props.user.email}
@@ -43,7 +43,7 @@ const ProfilePage = (props) => {
                   icon={<CreateIcon />} primary={true} />
               </CardActions> : <span></span>}
             </Card> :
-            <Card style={{width: 350, marginLeft: 50, marginTop: 30}}>
+            <Card style={{maxWidth: 350, marginTop: 30}}>
               <CardMedia overlay={<CardTitle title={props.user.username} />}>
                 <Gravatar email={md5(props.user.email)} size={300} rating="pg"
                   default="identicon" className="CustomAvatar-image" />
@@ -101,7 +101,7 @@ const ProfilePage = (props) => {
             </Card>
         }
         </div>
-        <div className='col-xs-10'>
+        <div className='col-md-8 col-sm-8' >
           <DocumentContainer selectedDocuments={props.documents}/>
           <CreateDocumentContainer/>
         </div>
