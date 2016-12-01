@@ -46,6 +46,14 @@ module.exports = {
 
   create: function(req, res) {
     Role.initialize();
+    Role.find({}, function(err, roles){
+      if (roles){
+        console.log(roles);
+      } else {
+        console.log(err);
+      }
+
+    });
     var user = new User();
     user.username = req.body.username;
     user.name = {first: req.body.first, last: req.body.last};
