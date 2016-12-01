@@ -5,7 +5,7 @@
 
 ## Description
 
-The system manages documents, users and user roles. Each document defines access rights, the document defines which roles can access it. Each document specifies the date it was published. Users are categorized by roles, each user has a role defined for them.
+The system manages documents, users and user roles. Each document defines access rights, the document defines which roles can access it. Each document specifies the date it was published. Users are categorized by roles, each user has a role defined for them. Find the project at this address https://docsycp4.herokuapp.com/.
 
 ## Installation
 
