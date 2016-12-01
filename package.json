@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run build",
     "start": "node index.js",
     "build": "export NODE_ENV=production;webpack --config webpack.config.prod.js",
     "dev": "webpack-dev-server --config webpack.config.dev.js",
