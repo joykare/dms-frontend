@@ -17,7 +17,7 @@ const muiTheme = getMuiTheme({
 
 const Main = (props) => (
   <MuiThemeProvider muiTheme={muiTheme}>
-    {props.children}
+      {props.children}
   </MuiThemeProvider>
 );
 

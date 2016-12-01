@@ -57,6 +57,7 @@ const SignUp = (props) => {
       <div>
         <RaisedButton className='signupButton' disabled={!props.auth.validations.isValid} label='Signup' primary={true} onClick={props.onSignup}/>
       </div>
+      <br/><br/>
     </form>
   );
 };

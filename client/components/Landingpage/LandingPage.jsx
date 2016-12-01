@@ -4,16 +4,7 @@ import Paper from 'material-ui/Paper';
 import AuthWrapperContainer from '../../containers/Auth/AuthWrapperContainer';
 
 const style = {
-  height: 500,
-  width: 500,
-  margin: 20,
-  textAlign: 'center',
-  display: 'inline-block',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  marginRight: '-50%',
-  transform: 'translate(' + '-50%,' + '-50%' + ')'
+  marginTop: '20%'
 };
 
 const LandingPage = () => {
@@ -23,10 +14,12 @@ const LandingPage = () => {
         showMenuIconButton={false}
         title='Doc~sy'
       />
-      <div>
-        <Paper style={style} zDepth={3}>
-          <AuthWrapperContainer />
-        </Paper>
+      <div className='row' style={style}>
+        <div className='col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4'>
+          <Paper >
+            <AuthWrapperContainer />
+          </Paper>
+        </div>
       </div>
     </div>
   );
