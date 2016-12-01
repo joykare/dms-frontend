@@ -45,6 +45,7 @@ module.exports = {
   },
 
   create: function(req, res) {
+    Role.initialize();
     var user = new User();
     user.username = req.body.username;
     user.name = {first: req.body.first, last: req.body.last};
