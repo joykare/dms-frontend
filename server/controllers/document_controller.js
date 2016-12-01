@@ -12,7 +12,7 @@ module.exports = {
     document.ownerId = req.decoded._id || req.body.ownerId;
 
     if(req.decoded.name !== undefined && !(isEmpty(req.decoded.name))) {
-      return document.ownerName = upperCaseFirst(req.decoded.name.first) + ' ' + upperCaseFirst(req.decoded.name.last);
+      document.ownerName = upperCaseFirst(req.decoded.name.first) + ' ' + upperCaseFirst(req.decoded.name.last);
     }
     document.ownerEmail = req.decoded.email;
     document.title = req.body.title;
