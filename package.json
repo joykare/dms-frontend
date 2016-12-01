@@ -37,6 +37,7 @@
     "html-webpack-plugin": "^2.24.1",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
+    "lodash.isempty": "^4.4.0",
     "material-design-lite": "^1.2.1",
     "material-ui": "^0.16.4",
     "mocha": "^3.0.2",

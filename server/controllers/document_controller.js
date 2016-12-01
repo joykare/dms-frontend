@@ -1,5 +1,6 @@
 var Document = require('../models/document');
 var Role = require('../models/role');
+var isEmpty = require('lodash.isempty');
 
 module.exports = {
   create: function(req, res) {
@@ -9,7 +10,8 @@ module.exports = {
     };
 
     document.ownerId = req.decoded._id || req.body.ownerId;
-    if(req.decoded.name !== undefined) {
+
+    if(req.decoded.name !== undefined && !(isEmpty(req.decoded.name))) {
       return document.ownerName = upperCaseFirst(req.decoded.name.first) + ' ' + upperCaseFirst(req.decoded.name.last);
     }
     document.ownerEmail = req.decoded.email;
