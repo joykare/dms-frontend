@@ -86,6 +86,7 @@
     "style-loader": "^0.13.1",
     "superagent": "^2.3.0",
     "superagent-mocker": "^0.5.2",
-    "supertest": "^2.0.0"
+    "supertest": "^2.0.0",
+    "validator": "^6.2.0"
   }
 }
