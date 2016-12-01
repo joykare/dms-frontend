@@ -98,7 +98,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
   case actionTypes.DOC_UPDATE_REQUEST:
     return (
       state.merge(Map({
-        isFetching: true,
+        isFetching: false,
         document: Map({
           docContent: fromJS(action.updates),
           isShowingDialog: true,
@@ -151,7 +151,7 @@ export default function(state = INITIAL_DOC_STATE, action) {
   case actionTypes.DOC_CREATE_REQUEST:
     return (
       state.merge(Map({
-        isFetching: true,
+        isFetching: false,
         document: Map({
           docContent: fromJS(action.doc),
           isUpdatingDoc: false,

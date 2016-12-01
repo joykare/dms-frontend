@@ -68,7 +68,7 @@ describe('docReducer spec', () => {
     };
 
     expect(docReducer(Map(), action)).to.eql(Map({
-      isFetching: true,
+      isFetching: false,
       document: Map({
         docContent: fromJS(action.doc),
         isUpdatingDoc: false,
@@ -136,7 +136,7 @@ describe('docReducer spec', () => {
     };
 
     expect(docReducer(Map(), action)).to.eql(Map({
-      isFetching: true,
+      isFetching: false,
       document: Map({
         docContent: fromJS(action.updates),
         isShowingDialog: true,

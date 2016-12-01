@@ -56,7 +56,7 @@ class DocumentContainer extends React.Component {
   render() {
     return (
       this.props.documents.get('isFetching') ?
-        <CircularProgress size={80} thickness={5} /> :
+        <CircularProgress size={80} thickness={5} marginLeft='50%' /> :
         <DocumentList documents={this.handleDisplayDocuments()}
                       auth={this.props.auth.get('user').toJS()}
                       onUpdate={this.toggleUpdateDocument}
