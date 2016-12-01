@@ -9,8 +9,10 @@ const router = express.Router();
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.dev.js');
 
-dotenv.load();
 const env = process.env.NODE_ENV;
+if (env === 'development') {
+  dotenv.load();
+}
 
 require('./config/db');
 
