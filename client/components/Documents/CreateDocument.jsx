@@ -35,7 +35,7 @@ const CreateDocument = (props) => {
         open={props.document.isShowingDialog}
         onRequestClose={props.onClose}
       >
-        <div className='row'>
+        <div className='row col-lg-10 col-lg-offset-1 col-sm-12'>
           <div style={{float: 'left'}}>
             <TextField
               classname='title'
@@ -46,7 +46,7 @@ const CreateDocument = (props) => {
               onChange={props.onChange}
             /><br />
           </div>
-          <div style={{float: 'right', paddingLeft: 60}}>
+          <div style={{float: 'right'}}>
             <SelectField
               floatingLabelText='Access Level'
               onChange={props.setAccess}

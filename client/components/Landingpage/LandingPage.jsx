@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import AuthWrapperContainer from '../../containers/Auth/AuthWrapperContainer';
 
 const style = {
-  marginTop: '20%'
+  marginTop: '10%'
 };
 
 const LandingPage = () => {
