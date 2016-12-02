@@ -35,8 +35,6 @@ const CreateDocument = (props) => {
         open={props.document.isShowingDialog}
         onRequestClose={props.onClose}
       >
-        <div className='row col-lg-10 col-lg-offset-1 col-sm-12'>
-          <div style={{float: 'left'}}>
             <TextField
               classname='title'
               name='title'
@@ -44,20 +42,8 @@ const CreateDocument = (props) => {
               floatingLabelText='Title'
               defaultValue={props.document.docContent.title}
               onChange={props.onChange}
+              fullWidth={true}
             /><br />
-          </div>
-          <div style={{float: 'right'}}>
-            <SelectField
-              floatingLabelText='Access Level'
-              onChange={props.setAccess}
-              value={props.document.docContent.accessLevel || 'public'}
-            >
-              <MenuItem value='public' primaryText='Public' />
-              <MenuItem value='private' primaryText='Private' />
-            </SelectField>
-          </div>
-        </div>
-
 
         <TextField
           classname='content'
@@ -71,6 +57,14 @@ const CreateDocument = (props) => {
           rows={2}
           rowsMax={10}
         /><br />
+        <SelectField
+          floatingLabelText='Access Level'
+          onChange={props.setAccess}
+          value={props.document.docContent.accessLevel || 'public'}
+        >
+          <MenuItem value='public' primaryText='Public' />
+          <MenuItem value='private' primaryText='Private' />
+        </SelectField>
       </Dialog>
     </div>
   );

@@ -14,6 +14,7 @@ module.exports = {
     if(req.decoded.name !== undefined && !(isEmpty(req.decoded.name))) {
       document.ownerName = upperCaseFirst(req.decoded.name.first) + ' ' + upperCaseFirst(req.decoded.name.last);
     }
+    document.ownerUsername= req.decoded.username;
     document.ownerEmail = req.decoded.email;
     document.title = req.body.title;
     document.content = req.body.content;
@@ -22,6 +23,7 @@ module.exports = {
     if (req.body.accessLevel) {
       document.accessLevel = req.body.accessLevel;
     }
+
     document.save(function(err, document) {
       if (err) {
         if (err.code === 11000) {

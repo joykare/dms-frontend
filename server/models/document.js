@@ -14,6 +14,9 @@ var documentSchema = new Schema ({
   ownerName: {
     type: String
   },
+  ownerUsername: {
+    type: String
+  },
   ownerEmail: {
     type: String
   },
